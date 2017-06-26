@@ -34,21 +34,6 @@ class Gallery(Timestampable):
         return self.name
 
 
-class Package(Timestampable):
-    title = models.CharField(max_length=1024)
-    slug = models.SlugField(unique=True)
-    subTitle = models.CharField(max_length=1024, null=True, blank=True)
-    titlePic = models.ImageField(null=True, blank=True)
-    caption = models.CharField(max_length=255, null=True, blank=True)
-    body = RichTextField()
-    price = models.FloatField(default=0, null=True, blank=True)
-    discount = models.FloatField(default=0, null=True, blank=True)
-    gallery = models.OneToOneField(Gallery, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.title
-
-
 class Place(Timestampable):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
@@ -71,6 +56,24 @@ class Season(Timestampable):
 
     def __str__(self):
         return self.name
+
+
+class Package(Timestampable):
+    title = models.CharField(max_length=1024)
+    slug = models.SlugField(unique=True)
+    subTitle = models.CharField(max_length=1024, null=True, blank=True)
+    titlePic = models.ImageField(null=True, blank=True)
+    caption = models.CharField(max_length=255, null=True, blank=True)
+    body = RichTextField()
+    price = models.FloatField(default=0, null=True, blank=True)
+    discount = models.FloatField(default=0, null=True, blank=True)
+    gallery = models.OneToOneField(Gallery, on_delete=models.CASCADE)
+    place = models.ForeignKey(Place)
+    day = models.ForeignKey(Days)
+    season = models.ForeignKey(Season)
+
+    def __str__(self):
+        return self.title
 
 
 class Itenary(Timestampable):
