@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'moodways.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'moodwaysdb',
+        'USER': 'moodwaysuser',
+        'PASSWORD': 'm00dw@y5',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -126,3 +130,8 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "root", "static_cdn")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "root", "media_cdn")
+
+# Django Ckeditor
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
