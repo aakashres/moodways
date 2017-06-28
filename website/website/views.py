@@ -15,6 +15,81 @@ class Test(TemplateView):
     template_name = "test.html"
 
 
+class RegistrationView(View):
+    def get(self, request):
+        form = UserForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'registration.html', context)
+
+    def post(self, request):
+        form = UserForm(request.POST or None)
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = form.cleaned_data.get('password2')
+            user.set_password(password)
+            user.save()
+
+            user = authenticate(username=user.username, password=password)
+            messages.success(request, "Registration Successful")
+            login(request, user)
+            return redirect('website:test')
+        else:
+            print(userForm.errors)
+
+        context = {
+            'form': form,
+        }
+        return render(request, 'registration.html', context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            messages.warning(request, 'You are already registered.')
+            return redirect('website:test')
+        return super(RegistrationView, self).dispatch(request, *args, **kwargs)
+
+
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'login.html', context)
+
+    def post(self, request):
+        form = LoginForm(request.POST or None)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user and user.is_active:
+                messages.success(request, "Logged In Successfully")
+                login(request, user)
+                return redirect('website:test')
+        messages.warning(request, "Log In Failure")
+        context = {
+            'form': form,
+        }
+        return render(request, 'login.html', context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            messages.warning(request, 'You are already logged in.')
+            return redirect('form:test')
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
+
+
+class LogoutView(View):
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated():
+            logout(request)
+        messages.success(request, "Logged Out Successfully")
+        return redirect('website:login')
+
+
 class GalleryCreateView(SuccessMessageMixin, CreateView):
     model = Gallery
     template_name = 'galleryCreate.html'
