@@ -1,0 +1,9 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+{% for comment in comments %}
+{{comment.blog.title}}
+{{comment.name}}
+{{comment.email}}
+{%endfor%}
+{% endblock %}

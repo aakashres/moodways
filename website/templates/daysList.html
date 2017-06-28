@@ -1,0 +1,7 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+{% for day in days %}
+{{day}}{{day.min}}{{day.max}}
+{%endfor%}
+{% endblock %}

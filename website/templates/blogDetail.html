@@ -1,0 +1,11 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+{{blog.author}}
+{{blog.authorPic.url}}
+{{blog.title}}
+{{blog.subTitle}}
+{{blog.titlePic.url}}
+{{blog.caption}}
+{{blog.body|safe}}
+{% endblock %}

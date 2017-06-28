@@ -1,0 +1,7 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+{% for gallery in galleries %}
+{{gallery.name}}
+{%endfor%}
+{% endblock %}

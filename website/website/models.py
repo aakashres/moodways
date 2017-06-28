@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from ckeditor.fields import RichTextField
+from django.core.urlresolvers import reverse
 
 
 # Create your models here.
@@ -18,20 +19,31 @@ class Timestampable(models.Model):
         super().save()
 
 
-class Photo(Timestampable):
-    photo = models.ImageField()
-    caption = models.CharField(max_length=255, null=True, blank=True)
-
-    def __str__(self):
-        return self.pk
-
-
 class Gallery(Timestampable):
     name = models.CharField(max_length=255)
-    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse("website:galleryDetail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Gallery"
+        verbose_name_plural = "Galleries"
+
+
+class Photo(Timestampable):
+    photo = models.ImageField()
+    caption = models.CharField(max_length=255, null=True, blank=True)
+    gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.gallery.name + " " + str(self.pk)
+
+    class Meta:
+        verbose_name = "Photo"
+        verbose_name_plural = "Photos"
 
 
 class Place(Timestampable):
@@ -41,6 +53,10 @@ class Place(Timestampable):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Place"
+        verbose_name_plural = "Places"
+
 
 class Days(Timestampable):
     min = models.IntegerField(default=0)
@@ -49,6 +65,10 @@ class Days(Timestampable):
     def __str__(self):
         return str(str(self.min) + "-" + str(self.max) + " Days ")
 
+    class Meta:
+        verbose_name = "Day"
+        verbose_name_plural = "Days"
+
 
 class Season(Timestampable):
     name = models.CharField(max_length=255)
@@ -56,6 +76,10 @@ class Season(Timestampable):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Season"
+        verbose_name_plural = "Seasons"
 
 
 class Package(Timestampable):
@@ -67,13 +91,20 @@ class Package(Timestampable):
     body = RichTextField()
     price = models.FloatField(default=0, null=True, blank=True)
     discount = models.FloatField(default=0, null=True, blank=True)
-    gallery = models.OneToOneField(Gallery, on_delete=models.CASCADE)
-    place = models.ForeignKey(Place)
-    day = models.ForeignKey(Days)
-    season = models.ForeignKey(Season)
+    gallery = models.ForeignKey(Gallery, null=True, blank=True)
+    place = models.ForeignKey(Place, null=True, blank=True)
+    day = models.ForeignKey(Days, null=True, blank=True)
+    season = models.ForeignKey(Season, null=True, blank=True)
+
+    def get_absolute_url(self):
+        return reverse("website:packageDetail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Package"
+        verbose_name_plural = "Packages"
 
 
 class Itenary(Timestampable):
@@ -82,7 +113,12 @@ class Itenary(Timestampable):
     description = RichTextField()
 
     def __str__(self):
-        return self.name
+        return self.day
+
+    class Meta:
+        verbose_name = "Iternary"
+        verbose_name_plural = "Iternaries"
+        ordering = ["day"]
 
 
 class Blog(Timestampable):
@@ -97,6 +133,10 @@ class Blog(Timestampable):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "Blog"
+        verbose_name_plural = "Blogs"
+
 
 class Comment(Timestampable):
     name = models.CharField(max_length=255)
@@ -107,6 +147,10 @@ class Comment(Timestampable):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Comment"
+        verbose_name_plural = "Comments"
+
 
 class Page(Timestampable):
     title = models.CharField(max_length=255)
@@ -115,3 +159,7 @@ class Page(Timestampable):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Page"
+        verbose_name_plural = "Pages"

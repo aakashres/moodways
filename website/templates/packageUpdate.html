@@ -1,0 +1,11 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<form method="POST" action="." enctype="multipart/form-data">
+{% csrf_token %}
+{{form.as_p}}
+{{form.media}}
+<input type="submit" name="submit" value="Add/Update">
+
+</form>
+{% endblock %}
