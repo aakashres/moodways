@@ -1,16 +1,76 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/admin/base.html' %}
+
+{% block head_title %}
+    {{block.super}} | Package Detail
+{% endblock %}
 
 {% block content %}
-{{package}}
-{% for itenary in itenaries %}
-{{itenary}}
-{% endfor %}
+<section>
+<div class="section-body contain-lg">
+<h2>Package Detail</h2>
+    <div class="card card-tiles style-default-light">
+        <div class="row style-primary">
+            <div class="col-sm-12">
+                <div class="card-body style-default-dark">
+                    <h2>{{package.title}}</h2>
+                </div>
+            </div>
+        </div>
 
-<form action="" method="post">
-{% csrf_token %}
-{{form.as_p}}
-{{form.media}}
-<input type="submit" name="submit" value="Add/Update">
+        <div class="row">
+            <!-- BEGIN package POST TEXT -->
+            <div class="col-md-12">
+                <article class="style-default-bright">
+                    {% if package.titlePic %}
+                    <div>
+                        <img class="img-responsive" src="{{package.titlePic.url}}" alt="{{package.caption}}" />
+                    </div>
+                  <h3>{{package.caption}}</h3>
+                    {% endif %}
+                    <div class="card-body">
+                        <h2>{{package.subTitle}}</h2>
+                        <p>{{package.body|safe}}</p>
+                    </div><!--end .card-body -->
 
-</form>
+                </article>
+
+            </div><!--end .col -->
+            <!-- END package POST TEXT -->
+
+        </div>
+    </div>
+<!-- BEGIN LAYOUT JUSTIFIED -->
+      <div class="row">
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-head">
+                <ul class="nav nav-tabs nav-justified" data-toggle="tabs">
+                  {% for itenary in itenaries %}
+                    <li class="{% if forloop.counter == 1%}active{% endif %}"><a href="#{{forloop.counter}}">{{itenary}}</a> </li>
+                  {% endfor %}
+                </ul>
+            </div><!--end .card-head -->
+            <div class="card-body tab-content">
+                  {% for itenary in itenaries %}
+                     <div class="tab-pane {% if forloop.counter == 1%}active{% endif %}" id="{{forloop.counter    }}">
+                     {{itenary.description|safe}}
+                     <hr/>
+                     <a href="{% url 'website:itenaryUpdate' itenary.id %}">Update</a> | <a href="{% url 'website:itenaryDelete' itenary.id %}">Delete</a>
+                        </div>
+                  {% endfor %}
+            </div><!--end .card-body -->
+        </div><!--end .card -->
+    </div><!--end .col -->
+    <!-- END LAYOUT JUSTIFIED -->
+    </div>
+</div>
+
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#package').addClass('active')
+</script>
 {% endblock %}

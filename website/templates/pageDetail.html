@@ -1,6 +1,41 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/admin/base.html' %}
+
+{% block head_title %}
+    {{block.super}} | Page Detail
+{% endblock %}
 
 {% block content %}
-{{page.title}}
-{{page.body|safe}}
+<section>
+<div class="section-body contain-lg">
+<h2>Page Detail</h2>
+    <div class="card card-tiles style-default-light">
+        <div class="row style-primary">
+            <div class="col-sm-12">
+                <div class="card-body style-default-dark">
+                    <h2>{{page.title}}</h2>
+                    <div class="text-default-light">Posted by Admin
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- BEGIN BLOG POST TEXT -->
+            <div class="col-md-12">
+                <article class="style-default-bright">
+                    <div class="card-body">
+                        <p>{{page.body|safe}}</p>
+                    </div><!--end .card-body -->
+                </article>
+            </div><!--end .col -->
+            <!-- END BLOG POST TEXT -->
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#page').addClass('active')
+</script>
 {% endblock %}

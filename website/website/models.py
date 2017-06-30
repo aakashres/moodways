@@ -143,6 +143,7 @@ class Comment(Timestampable):
     email = models.EmailField()
     body = models.TextField()
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    approved = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -163,3 +164,43 @@ class Page(Timestampable):
     class Meta:
         verbose_name = "Page"
         verbose_name_plural = "Pages"
+
+
+class Booking(Timestampable):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    person = models.PositiveIntegerField(default=1)
+    travelDate = models.DateField()
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    comments = models.TextField()
+
+    def __str__(self):
+        return self.name + " " + self.package.title
+
+
+class Menu(Timestampable):
+    title = models.CharField(max_length=255)
+    url = models.CharField(max_length=50, help_text='/pages/1/')
+    priority = models.IntegerField(
+        help_text='Lower number comes first in menu', null=False, blank=False)
+    parent = models.ForeignKey(
+        'self', related_name='children', null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Menu"
+        verbose_name_plural = "Menus"
+        ordering = ['priority', ]
+
+    @staticmethod
+    def get_root():
+        return Menu.objects.filter(title="root").get()
+
+    def not_deleted_children(self):
+        return self.children.filter(deleted_at=None)
+
+    def __str__(self):
+        if self.parent:
+            if self.parent.title != "root":
+                return self.parent.title + ' : ' + self.title
+        return self.title

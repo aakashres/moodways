@@ -4,6 +4,7 @@ from .views import *
 urlpatterns = [
     url(r'^test/$', Test.as_view(), name="test"),
 
+
     url(r'^register/$', RegistrationView.as_view(), name="register"),
     url(r'^login/$', LoginView.as_view(), name="login"),
     url(r'^logout/$', LogoutView.as_view(), name="logout"),
@@ -98,6 +99,20 @@ urlpatterns = [
         CommentListView.as_view(), name="commentList"),
     url(r'^moodwaysAdmin/comment/(?P<pk>\d+)/$',
         CommentDetailView.as_view(), name='commentDetail'),
+    url(r'^moodwaysAdmin/comment/(?P<pk>\d+)/toggle$',
+        CommentApproveDisapproveView.as_view(), name='commentToggle'),
     url(r'^moodwaysAdmin/comment/(?P<pk>\d+)/delete/$',
         CommentDeleteView.as_view(), name="commentDelete"),
+
+
+    url(r'^moodwaysAdmin/menu/list/$',
+        MenuListView.as_view(), name='menuList'),
+    url(r'^moodwaysAdmin/menu/create/$',
+        MenuCreateView.as_view(), name='menuCreate'),
+    url(r'^moodwaysAdmin/menu/(?P<pk>[\d]+)/$',
+        MenuDetailView.as_view(), name='menuDetail'),
+    url(r'^moodwaysAdmin/menu/(?P<pk>[\d]+)/update/$',
+        MenuUpdateView.as_view(), name='menuUpdate'),
+    url(r'^moodwaysAdmin/menu/(?P<pk>[\d]+)/delete/$',
+        MenuDeleteView.as_view(), name='menuDelete'),
 ]

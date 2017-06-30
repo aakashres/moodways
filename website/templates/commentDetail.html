@@ -1,8 +1,43 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/admin/base.html' %}
+
+{% block head_title %}
+    {{block.super}} | Comment Detail
+{% endblock %}
 
 {% block content %}
-{{comment.blog.title}}
-{{comment.name}}
-{{comment.email}}
-{{comment.body}}
+<section>
+<div class="section-body contain-lg">
+<h2>Comment Detail</h2>
+
+    <div class="card card-tiles style-default-light">
+        <div class="row style-primary">
+            <div class="col-sm-12">
+                <div class="card-body style-default-dark">
+                    <h2>{{comment.blog.title}}</h2>
+                    <div class="text-default-light">Written by {{comment.name}}
+                    <div class="text-default-light">Approved: {{comment.approved}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- BEGIN BLOG POST TEXT -->
+            <div class="col-md-12">
+                <article class="style-default-bright">
+                    <div class="card-body">
+                        <p>{{comment.body}}</p>
+                    </div><!--end .card-body -->
+                </article>
+            </div><!--end .col -->
+            <!-- END BLOG POST TEXT -->
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#comment').addClass('active')
+</script>
 {% endblock %}

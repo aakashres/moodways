@@ -1,0 +1,59 @@
+{% extends 'layouts/admin/base.html' %}
+
+{% block head_title %}
+    {{block.super}} | Menu Detail
+{% endblock %}
+
+{% block content %}
+
+<section>
+<div class="section-body contain-lg">
+<h2>Menu Detail</h2>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped no-margin">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Title</td>
+                        <td>{{menu.title}}</td>
+                    </tr>
+                    <tr>
+                        <td>URL</td>
+                        <td>{{menu.url}}</td>
+                    </tr>
+                    <tr>
+                        <td>Priority</td>
+                        <td>{{menu.priority}}</td>
+                    </tr>
+                    <tr>
+                        <td>Active</td>
+                        <td>{% if menu.active %}True{% else %}False{%endif%}</td>
+                    </tr>
+                    <tr>
+                        <td>Parent</td>
+                        {% if menu.parent %}
+                        <td><a href="{% url 'website:menuDetail' menu.parent.id %}">{{menu.parent}}</a></td>
+                        {% else %}
+                        <td>None</td>
+                        {% endif %}
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#menu').addClass('active')
+</script>
+{% endblock %}

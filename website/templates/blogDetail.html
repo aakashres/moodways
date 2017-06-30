@@ -1,11 +1,48 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/admin/base.html' %}
+
+{% block head_title %}
+    {{block.super}} | Blog Detail
+{% endblock %}
 
 {% block content %}
-{{blog.author}}
-{{blog.authorPic.url}}
-{{blog.title}}
-{{blog.subTitle}}
-{{blog.titlePic.url}}
-{{blog.caption}}
-{{blog.body|safe}}
+<section>
+<div class="section-body contain-lg">
+<h2>Blog Detail</h2>
+    <div class="card card-tiles style-default-light">
+        <div class="row style-primary">
+            <div class="col-sm-12">
+                <div class="card-body style-default-dark">
+                    <h2>{{blog.title}}</h2>
+                    <div class="text-default-light">Written by {{blog.author}}
+                    <img width="50" class="img-responsive" src="{{blog.authorPic.url}}" alt="/" /></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- BEGIN BLOG POST TEXT -->
+            <div class="col-md-12">
+                <article class="style-default-bright">
+                    {% if blog.titlePic %}
+                    <div>
+                        <img class="img-responsive" src="{{blog.titlePic.url}}" alt="{{blog.caption}}" />
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h2>{{blog.subTitle}}</h2>
+                        <p>{{blog.body|safe}}</p>
+                    </div><!--end .card-body -->
+                </article>
+            </div><!--end .col -->
+            <!-- END BLOG POST TEXT -->
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#blog').addClass('active')
+</script>
 {% endblock %}

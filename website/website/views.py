@@ -414,8 +414,57 @@ class CommentDetailView(DetailView):
     template_name = 'commentDetail.html'
 
 
+class CommentApproveDisapproveView(View):
+    def get(self, request, *args, **kwargs):
+        id = kwargs['pk']
+        comment = Comment.objects.get(id=id)
+        if comment.approved:
+            comment.approved = False
+        else:
+            comment.approved = True
+        comment.save()
+        return redirect("website:commentList")
+
+
 class CommentDeleteView(SuccessMessageMixin, DeleteView):
     model = Comment
     template_name = 'delete.html'
     success_url = reverse_lazy("website:test")
     success_message = "Comment Successfully Deleted"
+
+
+class MenuCreateView(SuccessMessageMixin, CreateView):
+    model = Menu
+    template_name = 'menuCreate.html'
+    form_class = MenuForm
+    success_url = reverse_lazy("website:menuList")
+    success_message = "Menu Successfully Added"
+
+
+class MenuUpdateView(SuccessMessageMixin, UpdateView):
+    model = Menu
+    template_name = 'menuUpdate.html'
+    form_class = MenuForm
+    success_url = reverse_lazy("website:menuList")
+    success_message = "Menu Successfully Updated"
+
+
+class MenuDeleteView(SuccessMessageMixin, DeleteView):
+    model = Menu
+    template_name = 'delete.html'
+    success_url = reverse_lazy("website:menuList")
+    success_message = "Menu Successfully Deleted"
+
+
+class MenuDetailView(DetailView):
+    model = Menu
+    template_name = 'menuDetail.html'
+
+
+class MenuListView(ListView):
+    model = Menu
+    template_name = 'menuList.html'
+    context_object_name = 'menus'
+
+    def get_queryset(self):
+        return Menu.objects.filter(deleted_at=None)
