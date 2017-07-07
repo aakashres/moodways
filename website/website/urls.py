@@ -2,12 +2,31 @@ from django.conf.urls import url
 from .views import *
 
 urlpatterns = [
-    url(r'^test/$', Test.as_view(), name="test"),
+    url(r'^$', HomeView.as_view(), name="home"),
+    url(r'^blog/list/$',
+        FrontBlogListView.as_view(), name="frontBlogList"),
+    url(r'^blog/(?P<pk>\d+)/$',
+        FrontBlogDetailView.as_view(), name='frontBlogDetail'),
+    url(r'^page/(?P<slug>[\w-]+)/$',
+        FrontPageDetailView.as_view(), name='frontPageDetail'),
+
+    url(r'^package/list/$',
+        FrontPackageListView.as_view(), name="frontPackageList"),
+    url(r'^package/(?P<slug>[\w-]+)/$',
+        FrontPackageDetailView.as_view(), name='frontPackageDetail'),
+
+
+    url(r'^package/(?P<slug>[\w-]+)/book$',
+        FrontPackageBookingView.as_view(), name="frontPackageBooking"),
+
+
+
+    url(r'^moodwaysAdmin/dahboard/$', Dashboard.as_view(), name="dashboard"),
 
 
     url(r'^register/$', RegistrationView.as_view(), name="register"),
-    url(r'^login/$', LoginView.as_view(), name="login"),
-    url(r'^logout/$', LogoutView.as_view(), name="logout"),
+    url(r'^moodwaysAdmin/login/$', LoginView.as_view(), name="login"),
+    url(r'^moodwaysAdmin/logout/$', LogoutView.as_view(), name="logout"),
 
     url(r'^moodwaysAdmin/gallery/create/$',
         GalleryCreateView.as_view(), name="galleryCreate"),
@@ -115,4 +134,43 @@ urlpatterns = [
         MenuUpdateView.as_view(), name='menuUpdate'),
     url(r'^moodwaysAdmin/menu/(?P<pk>[\d]+)/delete/$',
         MenuDeleteView.as_view(), name='menuDelete'),
+
+    url(r'^moodwaysAdmin/slider/list/$',
+        SliderListView.as_view(), name='sliderList'),
+    url(r'^moodwaysAdmin/slider/create/$',
+        SliderCreateView.as_view(), name='sliderCreate'),
+    url(r'^moodwaysAdmin/slider/(?P<pk>[\d]+)/$',
+        SliderDetailView.as_view(), name='sliderDetail'),
+    url(r'^moodwaysAdmin/slider/(?P<pk>[\d]+)/update/$',
+        SliderUpdateView.as_view(), name='sliderUpdate'),
+    url(r'^moodwaysAdmin/slider/(?P<pk>[\d]+)/delete/$',
+        SliderDeleteView.as_view(), name='sliderDelete'),
+
+    url(r'^moodwaysAdmin/trailer/list/$',
+        TrailerListView.as_view(), name='trailerList'),
+    url(r'^moodwaysAdmin/trailer/create/$',
+        TrailerCreateView.as_view(), name='trailerCreate'),
+    url(r'^moodwaysAdmin/trailer/(?P<pk>[\d]+)/$',
+        TrailerDetailView.as_view(), name='trailerDetail'),
+    url(r'^moodwaysAdmin/trailer/(?P<pk>[\d]+)/update/$',
+        TrailerUpdateView.as_view(), name='trailerUpdate'),
+    url(r'^moodwaysAdmin/trailer/(?P<pk>[\d]+)/delete/$',
+        TrailerDeleteView.as_view(), name='trailerDelete'),
+
+    url(r'^moodwaysAdmin/booking/list/$',
+        BookingListView.as_view(), name="bookingList"),
+    url(r'^moodwaysAdmin/booking/(?P<pk>[\d]+)/$',
+        BookingDetailView.as_view(), name="bookingDetail"),
+
+    url(r'^moodwaysAdmin/coupon/create/$',
+        CouponCreateView.as_view(), name="couponCreate"),
+    url(r'^moodwaysAdmin/coupon/list/$',
+        CouponListView.as_view(), name="couponList"),
+    url(r'^moodwaysAdmin/coupon/(?P<pk>\d+)/update/$',
+        CouponUpdateView.as_view(), name='couponUpdate'),
+    url(r'^moodwaysAdmin/coupon/(?P<pk>\d+)/delete/$',
+        CouponDeleteView.as_view(), name='couponDelete'),
+
+
+
 ]

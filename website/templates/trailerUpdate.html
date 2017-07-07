@@ -1,0 +1,29 @@
+{% extends 'layouts/admin/base.html' %}
+{% load staticfiles %}
+{% block head_title %}
+    {{block.super}} | Trailer Update
+{% endblock %}
+
+{% block content %}
+<section>
+<div class="section-body contain-lg">
+<h2>Trailer Update</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+                 {% csrf_token %}
+                {{form.as_p}}
+                <button class="btn ink-reaction btn-primary btn-raised" type="submit">Add/Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#trailer').addClass('active')
+</script>
+{% endblock %}

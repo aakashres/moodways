@@ -55,17 +55,33 @@ class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control form-control-solid placeholder-no-fix',
         'required': 'true',
-        'placeholder': 'Username'}))
+    }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control form-control-solid placeholder-no-fix',
         'required': 'true',
-        'placeholder': 'Password', }))
+    }))
 
     class Meta:
         fields = [
             "username",
             "password",
         ]
+
+
+class StaffForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
 
 
 class PhotoForm(forms.ModelForm):
@@ -132,6 +148,7 @@ class PackageForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
+        self.fields['is_promotional'].widget.attrs.update({'class': ''})
 
 
 class ItenaryForm(forms.ModelForm):
@@ -163,8 +180,13 @@ class CommentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in iter(self.fields):
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['name'].widget.attrs.update(
+            {'style': 'width:300px;', 'placeholder': 'Your Name'})
+        self.fields['email'].widget.attrs.update(
+            {'style': 'width:300px;', 'placeholder': 'Your Email'})
+        self.fields['body'].widget.attrs.update(
+            {'style': 'width:700px;', 'placeholder': 'Your Experince'})
 
 
 class PageForm(forms.ModelForm):
@@ -182,7 +204,7 @@ class MenuForm(forms.ModelForm):
 
     class Meta:
         model = Menu
-        exclude = ['deleted_at',    ]
+        exclude = ['deleted_at', ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -190,3 +212,75 @@ class MenuForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
             self.fields['parent'].queryset = Menu.objects.filter(
                 deleted_at=None)
+
+
+class SliderForm(forms.ModelForm):
+
+    class Meta:
+        model = Slider
+        fields = [
+            'file',
+            'fileType',
+            'label',
+            'active',
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+        self.fields['active'].widget.attrs.update({'class': ''})
+
+
+class TrailerForm(forms.ModelForm):
+
+    class Meta:
+        model = Trailer
+        exclude = ['deleted_at']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+
+class BookingForm(forms.ModelForm):
+
+    class Meta:
+        model = Booking
+        exclude = ['deleted_at', 'package']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+        self.fields["discount_code"].widget.attrs.update({'required': 'true'})
+        self.fields["travelDate"].widget.attrs.update(
+            {'id': 'datepicker'})
+
+
+class CouponForm(forms.ModelForm):
+    validFrom = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control datetimepicker',
+        'required': 'true',
+    }))
+    validTo = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control datetimepicker',
+        'required': 'true',
+    }))
+
+    class Meta:
+        model = Coupon
+        exclude = ['deleted_at', 'valid_to', 'valid_from']
+        include = ['validFrom', 'validTo']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update(
+                {'class': 'form-control'})
+        self.fields['package'].widget.attrs.update({'id': 'select-list'})
+        self.fields['validFrom'].widget.attrs.update(
+            {'class': 'datetimepicker form-control'})
+        self.fields['validTo'].widget.attrs.update(
+            {'class': 'datetimepicker form-control'})

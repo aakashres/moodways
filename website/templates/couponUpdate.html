@@ -1,0 +1,108 @@
+{% extends 'layouts/admin/base.html' %}
+{% load staticfiles %}
+
+{% block head_title %}
+{{block.super}} | Coupon Update
+{% endblock %}
+
+
+{% block extra_head %}
+<link type="text/css" rel="stylesheet" href="{% static 'assets/css/theme-default/libs//bootstrap-datetimepicker/bootstrap-datetimepicker.min.css' %}" />
+<link type="text/css" rel="stylesheet" href="{% static 'assets/css/theme-default/libs/select2/select2.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+<section>
+    <div class="section-body contain-lg">
+    <h2>Coupon Update</h2>
+        <!-- BEGIN BASIC ELEMENTS -->
+        <form class="form" name="couponForm" role="form" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{form.title}}
+                            <label for="{{ form.title.id_for_label }}">Coupon Title</label>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-10 col-sm-10">
+                        <div class="form-group">
+                            {{form.code}}
+                            <label for="{{ form.code.id_for_label }}">Coupon Code</label>
+                        </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2"  style="padding-top:20px;padding-left:75px;">
+                        <input type="button" class="btn ink-reaction btn-primary btn-raised" value="Generate" onClick="generate();">
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            {{form.validFrom}}
+                            <label for="{{ form.validFrom.id_for_label }}">Valid From</label>
+                        </div>
+                        <div class="form-group">
+                            {{form.validTo}}
+                            <label for="{{ form.validTo.id_for_label }}">Valid To</label>
+                        </div>
+                        <div class="form-group">
+                            {{form.package}}
+                            <label for="{{ form.package.id_for_label }}">Package</label>
+                        </div>
+                        <div class="form-group">
+                            {{form.discount_percent}}
+                            <label for="{{ form.discount_percent.id_for_label }}">Discount Percent</label>
+                        </div>
+
+                        <div class="col-xs-12 text-right">
+                            <button class="btn ink-reaction btn-primary btn-raised" type="submit">Update</button>
+                        </div><!--end .col -->
+                    </div><!--end .card-body -->
+                </div><!--end .card -->
+
+            </div><!--end .col -->
+        </div><!--end .row -->
+        </form>
+    </div><!--end .section-body -->
+</section>
+
+{% endblock %}
+
+{% block extra_js%}
+<script src="{% static 'assets/js/libs/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js' %}"></script>
+<script src="{% static 'assets/js/libs/select2/select2.min.js' %}"></script>
+
+<script type="text/javascript">
+    $('#coupon').addClass('active')
+    function randomPassword(length) {
+            var chars = "ABCDEFGHIJKLMNOP1234567890";
+            var pass = "";
+            for (var x = 0; x < length; x++) {
+                var i = Math.floor(Math.random() * chars.length);
+                pass += chars.charAt(i);
+            }
+            return pass;
+        }
+
+        function generate() {
+            couponForm.code.value = randomPassword(6);
+            console.log( randomPassword(6));
+        }
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $('#select-list').select2();
+        $(function () {
+        $('.datetimepicker').datetimepicker({
+            locale: 'en',
+            sideBySide: true,
+            format:'YYYY-MM-DD hh:mm A',
+          });
+        });
+    });
+</script>
+{% endblock %}

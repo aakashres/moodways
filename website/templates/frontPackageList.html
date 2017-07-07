@@ -1,0 +1,136 @@
+{% extends 'layouts/frontend/base.html' %}
+{% load staticfiles %}
+{%block title %}
+{{block.super}} | Blog List
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Location -->
+<div class="footer-bottom" style="background-color:transparent; margin-top:40px;">
+  <div class="wrap">
+    <div class="copy" style="margin-left:100px;">
+      <h1 style="font-size:13px; color:#666"><a href="{% url 'website:home' %}">Home</a></h1>
+    </div>
+    <div class="copy">
+      <h1 style="font-size:13px; color:#666"><a href="{% url 'website:frontPackageList' %}"> >>Packages</a></h1>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+<!-- Blog Section -->
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <!-- Left Sidebar -->
+
+
+      <div class="col-sm-8" style="width:70%; margin-left:40px; margin-right:-40px;">
+        <div class="blog-post blog-single-post" >
+
+
+          <!-- packages -->
+          <div class="main">
+            <div class="wrap">
+              <div class="pages">
+                <!-- Row 1 -->
+
+
+                <div class="blog-top" style="margin-left:10px;">
+                {% if not packages %}
+                <div style="margin-left:10px;">
+                <h1>No Package Found</h1>
+                </div>
+                {% endif %}
+                  {% for package in packages %}
+                  <!-- Block 1 -->
+                  <div class="col_1_of_b2 span_1_of_b2">
+                    <a><img src="{{package.titlePic.url}}" alt=""></a>
+                    <div class="blog-poast-admin2">
+                      <a>{{package.created_at|date:"M d"}}</a>
+                    </div>
+                    <div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
+                      <ul>
+                        <li><i class="admin"> </i><a class="admin"><span> </span>Rs.{{package.price}} {{package.discount}}%</a></li>
+                      </ul>
+                    </div>
+                    <h3 style="font-size:15px;"><a href="">{{package.title}}</a></h3>
+                    <div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
+                  </div>
+                  {% endfor %}
+                  <div class="clear"></div>
+                </div>
+                <!-- Row 1 end -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- right sidebar -->
+
+      <div class="col-sm-4 blog-sidebar" style="width:23%; margin-left:80px;">
+        <!-- Search Form -->
+        <form method="get" action="{% url 'website:frontPackageList' %}">
+                <div class="input-group">
+                  <input type="Search" class="form-control" name="q" placeholder="Search" aria-describedby="basic-addon2">
+                  <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
+                </div>
+            </form>
+        <div class="footer-bottom" style="background-color:#4ecdc4; margin-right:-10px; margin-bottom:20px; margin-top:20px;">
+          <div class="wrap">
+            <div class="copy">
+              <h1 style="font-size:13px;"><a style="color:#666;" target="_blank">Didn't find the package of your choice? Email us at</a></h1>
+            </div>
+            <div class="copy">
+              <h1 style="font-size:13px;"><a style="color:#FFF;" href="mailto:info@moodwaystravels.com" target="_blank">info@moodwaystravels.com</a></h1>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+    <ul class="pagination" style="margin-left:170px;">
+     {% if page_obj.has_previous %}
+     <li><a href="/package/list?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
+     </li>
+     {% else %}
+     <li><a href="#"><i class="fa fa-angle-left"></i></a>
+     </li>
+     {% endif %}
+     {% for pagenum in page_obj.paginator.page_range %}
+     <li><a href="/package/list?page={{ pagenum }}" {% ifequal pagenum page_obj.number%}class="active"{% endifequal %}>{{ pagenum }} </a>
+     </li>
+     {% endfor%}
+     {% if page_obj.has_next %}
+     <li><a href="/package/list?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a>
+     </li>
+     {% else %}
+     <li><a href="#"><i class="fa fa-angle-right"></i></a>
+     </li>
+     {% endif %}
+   </ul>
+
+   <!-- Social -->
+   <div class="footer-bottom" style="background-color:#FFF; margin-left:100px;">
+    <div class="wrap">
+      <div class="social2">
+       <ul>
+        <li class="facebook2"><a href="#"><span> </span></a></li>
+        <li class="linkedin2"><a href="#"><span></span></a></li>
+        <li class="twitter2"><a href="#"><span> </span></a></li>
+      </ul>
+
+
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'layouts/admin/base.html' %}
+
+{% block head_title %}
+    {{block.super}} | Booking Detail
+{% endblock %}
+
+{% block content %}
+<section>
+<div class="section-body contain-lg">
+<h2>Booking Detail</h2>
+    <div class="card card-tiles style-default-light">
+        <div class="row">
+            <!-- BEGIN package POST TEXT -->
+            <div class="col-md-12">
+                <article class="style-default-bright">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Key</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Package</td>
+                                    <td><a href="{% url 'website:packageDetail' booking.package.id %}">{{booking.package.title}}</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{{booking.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{booking.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Phone</td>
+                                    <td>{{booking.phone}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Number</td>
+                                    <td>{{booking.person}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Travel Date</td>
+                                    <td>{{booking.travelDate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Comments</td>
+                                    <td>{{booking.comments|linebreaks}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!--end .card-body -->
+
+                </article>
+
+            </div><!--end .col -->
+            <!-- END package POST TEXT -->
+
+        </div>
+    </div>
+</div>
+
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#booking').addClass('active')
+</script>
+{% endblock %}

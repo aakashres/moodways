@@ -1,0 +1,769 @@
+{% load staticfiles %}
+{% load subtract %}
+<!DOCTYPE html>
+<html class="no-js">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Title for page -->
+  <title>Moodways Travels</title>
+
+
+
+
+  <!-- Bootstrap Core CSS -->
+  <link href="{% static 'frontend/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/bootstrap.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/font-awesome.min.css' %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+
+  <link rel="stylesheet" href="{% static 'frontend/css/main1.css' %}" />
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  <script src="{% static 'frontend/js/main1.js' %}"></script>
+  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+  <link rel="stylesheet" href="{% static 'frontend/css/main.css' %}">
+  <link href="{% static 'frontend/css/custom.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/default-element.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/owl.carousel.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/owl.theme.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/contact.css' %}" rel="stylesheet">
+
+  <link href="{% static 'frontend/css/owl.transitions.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/cs-traveladvisor-plugin.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css/vertical.css' %}" rel="stylesheet">
+  <!-- Custom Fonts & Icons -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{% static 'frontend/css/icomoon-social.css' %}">
+  <link rel="stylesheet" href="{% static 'frontend/css/font-awesome.min.css' %}">
+  <script src="{% static 'frontend/js/modernizr-2.6.2-respond-1.1.0.min.js' %}"></script>
+  <link href="{% static 'frontend/css/style2.css' %}" rel="stylesheet" type="text/css" media="all" />
+  <link href="{% static 'frontend/css/theme2.css' %}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css1/style2.css' %}"/>
+  <link href="{% static 'frontend/css1/main.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css1/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+  <link href="{% static 'frontend/css1/theme.css' %}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="{% static 'frontend/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+  <!-- Javascript -->
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+  <script type="text/javascript" src="{% static 'frontend/js/jquery.roundabout-1.0.min.js' %}"></script>
+
+
+</head>
+
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+  <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <div class="container">
+     <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+        <i class="fa fa-bars"></i>
+      </button>
+      <a class="navbar-brand" href="#">Moodways Travels</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+      <ul class="nav navbar-nav navbar-right">
+       {% for child in menu_root.not_deleted_children %}
+       {% if request.path|cut:"/" == child.url|cut:"/" %}
+       {% if child.not_deleted_children %}
+       <li class="passive dropdown">
+        {% else %}
+        <li class="passive">
+          {%endif%}
+          {% else %}
+          {% if child.not_deleted_children %}
+          <li class="dropdown">
+            {% else %}
+            <li>
+              {%endif%}
+              {% endif %}
+              {% if child.not_deleted_children %}
+              <a href="{{ child.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ child.title }}<b class="caret"> </b></a>
+              <ul class="dropdown-menu" style="background-color:white;">
+                {% for sub_child in child.not_deleted_children %}
+                <li>
+                  <a href="{{ sub_child.url }}">{{ sub_child.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <a href="{{ child.url }}">{{ child.title }}</a>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+    </nav>
+
+
+
+  </header>
+
+
+  <section id="main-slider" class="no-margin">
+    <div class="carousel slide">
+      <div class="carousel-inner">
+        {% for slider in sliders %}
+        {% ifequal slider.fileType 1%}
+        <div class="item {% if forloop.counter == 1%}active{% endif %}" style="background-image: url({{slider.file.url}})">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="carousel-content centered">
+                  <h2 class="animation animated-item-1">{{slider.label}}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!--/.item-->
+        {% else %}
+        <div class="item {% if forloop.counter == 1%}active{% endif %}" >
+          <div class="fullscreen-bg">
+           <video controls loop muted autoplay poster="{% static 'frontend/img/slides/3.jpg' %}" class="fullscreen-bg__video">
+            <source src="{{slider.file.url}}" type="video/mp4">
+            </video>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="carousel-content centered">
+                    <h2 class="animation animated-item-1">{{slider.label}}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!--/.item-->
+        {% endifequal %}
+        {% endfor %}
+
+
+      </div><!--/.carousel-inner-->
+    </div><!--/.carousel-->
+    <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+      <i class="icon-angle-left"></i>
+    </a>
+    <a class="next hidden-xs" href="#main-slider" data-slide="next">
+      <i class="icon-angle-right"></i>
+    </a>
+  </section><!--/#main-slider-->
+
+
+  <section class="about" id="about">
+
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <div class="section-title st-center row">
+       <p>FIND A TREK</p>
+     </div>
+
+     <div class="row">
+      <div class="container">
+
+
+
+
+
+
+        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
+          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
+            <div class="container" >
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="carousel-content center centered">
+                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
+                    <p class="animation animated-item-2"><div class="checkbox">
+                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div></p>
+
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+        </div>
+        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
+          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
+            <div class="container" >
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="carousel-content center centered">
+                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
+                    <p class="animation animated-item-2"><div class="checkbox">
+                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div></p>
+
+
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
+          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
+            <div class="container" >
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="carousel-content center centered">
+                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
+                    <p class="animation animated-item-2"><div class="checkbox">
+                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div></p>
+
+
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
+          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
+            <div class="container" >
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="carousel-content center centered">
+                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
+                    <p class="animation animated-item-2"><div class="checkbox">
+                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div></p>
+
+
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
+          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
+            <div class="container" >
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="carousel-content center centered">
+                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
+                    <p class="animation animated-item-2"><div class="checkbox">
+                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div></p>
+
+
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
+          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
+            <div class="container" >
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="carousel-content center centered">
+                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
+                    <p class="animation animated-item-2"><div class="checkbox">
+                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                    </div></p>
+
+
+                    <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+</section>
+
+<div class="row" style="padding-top:30px;">
+ <div class="col-md-12">
+  <div class="c2a">
+
+   <a href="#" class="btn btn-main btn-lg glyphicon glyphicon-search">Find a Trek</a>
+ </div>
+</div>
+</div>
+<div class="section section-white">
+ <div class="container">
+  <div class="row">
+    <div class="section-title st-center">
+     <p>TRAILERS</p>
+   </div>
+   <div class="item" >
+    <div class="fullscreen-bg">
+     <video controls loop muted autoplay poster="{% static 'frontend/img/slides/3.jpg' %}" class="fullscreen-bg__video">
+      <source src="{{trailer.file.url}}" type="video/mp4">
+      </video>
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+<!-- End Services -->
+
+
+
+<section class="blog" id="blog" style="padding-bottom: 0px;">
+ <div class="container">
+  <div class="row">
+   <div class="col-md-12">
+    <div class="section-title st-center">
+     <h3>Recent Blogs</h3>
+   </div>
+ </div>
+</div>
+
+
+<div class="main" >
+  <div class="wrap">
+    <div class="pages">
+      <!-- Row 1 -->
+      <div class="blog-top">
+
+
+      {% for blog in blogs %}
+       <!-- Block 1 -->
+       <div class="col_1_of_b span_1_of_b">
+         <a href="blog-post.html"><img src="{{blog.titlePic.url}}" alt=""></a>
+         <div class="blog-poast-admin">
+          <a href="#">{{blog.created_at|date:"M"}}</a>
+        </div>
+        <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
+          <ul>
+           <li><i class="admin"> </i><a class="admin"  href="#"><span> </span> {{blog.author}}</a></li>
+         </ul>
+       </div>
+       <h3><a href="#">{{blog.title}}</a></h3>
+       {{blog.body|safe|truncatewords:10}}
+       <div class="button"><a href="{% url 'website:frontBlogDetail' blog.id %}">+Read More</a></div>
+     </div>
+     {% endfor ss%}
+
+<div class="clear"></div>
+</div>
+<div class="c2a">
+
+ <a href="{% url 'website:frontBlogList' %}" class="btn btn-main btn-lg glyphicon ">Read More</a>
+</div>
+</section>
+
+<section class="slide-wrapper" >
+
+  <div class="container" style="height: 500px;">
+
+    <div class="row" style="padding-left:20px; padding-right:20px;">
+     <div class="col-md-12">
+      <div class="section-title st-center">
+       <p>PROMOTIONAL PACKAGE</p>
+
+     </div>
+   </div>
+   <div id="myCarousel" class="carousel slide" style="height:500px">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+    {% for package in promotional_packages %}
+      <li data-target="#myCarousel" data-slide-to="{{forloop.counter|subtract}}" class="{% if forloop.counter == 1%}active{% endif %}"></li>
+    {% endfor %}
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+    {% for package in promotional_packages %}
+    <div class="item item3 {% if forloop.counter == 1%}active{% endif %}">
+        <div class="fill" style=" background-color:#48c3af;">
+          <div class="inner-content">
+            <div class="col-md-6">
+              <div class="carousel-img">
+                <img src="{% static 'frontend/img/back.jpg' %}" alt="sofa" class="img img-responsive" />
+              </div>
+            </div>
+            <div class="col-md-6 text-left">
+              <div class="carousel-desc">
+
+                <h2 style="color:#fff;">Nepal</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elit ipsum, scelerisque non semper eu, aliquet vel odio. Sed auctor id purus nec tristique. Donec euismod, urna vel dapibus tristique, dolor arcu ultrices lectus, nec pulvinar est turpis sit amet felis. Duis interdum purus quam, vitae cursus erat ornare at. Donec congue mi a ipsum tincidunt, imperdiet vehicula odio rutrum. Nam porta vulputate magna, id pretium lectus iaculis eu. Ut ut viverra libero.</p>
+                <div class="c2a">
+
+                 <a href="#" class="btn btn-main btn-lg glyphicon ">Read More</a>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+    {% endfor %}
+
+</div>
+</div>
+</div>
+</section>
+
+
+<section class="portfolio" id="portfolio">
+ <div class="container-fluid ">
+  <div class="row">
+   <div class="col-md-12  " style="padding-top:40px;">
+    <div class="section-title st-center">
+     <h3></h3>
+     <p>SOCIAL CLICKS</p>
+   </div>
+   <div class="filter mb40">
+     <form id="filter">
+       <fieldset class="group">
+        <label class="btn btn-default btn-main"><input type="radio" name="filter" value="all" checked="checked">#NEPAL</label>
+        <label class="btn btn-default"><input type="radio" name="filter" value="photography">#EXPERIENCENEPAL</label>
+        <label class="btn btn-default"><input type="radio" name="filter" value="design">#TRAVEL</label>
+        <label class="btn btn-default"><input type="radio" name="filter" value="codding">#MOODWAY</label>
+      </fieldset>
+    </form><!-- #filter -->
+  </div><!-- .filter .mb40 -->
+
+  <div class="grid">
+   <figure class="portfolio-item" data-groups='["photography"]'>
+    <img src="{% static 'frontend/photos/portfolio.jpg' %}" alt=""/>
+    <figcaption>
+     <h2>Nice <span>Lily</span></h2>
+     <p>Lily likes to play with crayons and pencils</p>
+     <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+   </figcaption>
+ </figure>
+ <figure class="portfolio-item" data-groups='["design"]'>
+  <img src="{% static 'frontend/photos/portfolio2.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["photography"]'>
+  <img src="{% static 'frontend/photos/portfolio3.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["design"]'>
+  <img src="{% static 'frontend/photos/portfolio4.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["design"]'>
+  <img src="{% static 'frontend/photos/portfolio5.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["photography"]'>
+  <img src="{% static 'frontend/photos/portfolio6.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["codding"]'>
+  <img src="{% static 'frontend/photos/portfolio7.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["photography"]'>
+  <img src="{% static 'frontend/photos/portfolio8.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["codding"]'>
+  <img src="{% static 'frontend/photos/portfolio9.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["codding"]'>
+  <img src="{% static 'frontend/photos/portfolio10.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["design"]'>
+  <img src="{% static 'frontend/photos/portfolio11.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+<figure class="portfolio-item" data-groups='["design"]'>
+  <img src="{% static 'frontend/photos/portfolio12.jpg' %}" alt=""/>
+  <figcaption>
+   <h2>Nice <span>Lily</span></h2>
+   <p>Lily likes to play with crayons and pencils</p>
+   <a href="#" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
+ </figcaption>
+</figure>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+
+
+<section id="contact" >
+  <div class="container" data-stellar-background-ratio="0.4" class="img img-responsive">
+    <div class="row">
+      <div class="col-md-3">
+        <a href="#" class="fa fa-map-marker" style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Quick Links</h4> </a>
+        <ul>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Home</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Destination</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Essential Info</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Ght Blog</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Earthquake 2015</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> FAQs</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Contact Us</a> </li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <a href="#" class="fa fa-map-marker" style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Watch</h4> </a>
+        <ul>
+
+
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Adventure week- Rebound Nepal</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Ght Trailer</a> </li>
+
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <a href="#" class="fa fa-map-marker" style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Destinations</h4> </a>
+        <ul>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Humla</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Jumla</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;">Far west Nepal</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Pokhara</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Chitwan</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Humla</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Jumla</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;">Far west Nepal</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Pokhara</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Chitwan</a> </li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <a href="#" class="fa fa-map-marker" style="color:#fff; font-size:25px;" ><h4 style="color:#fff;">My GHT</h4> </a>
+        <ul>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Trekkers' Journals</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> My GHT Photo Compilation</a> </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<div class="footer-bottom" style="background-color:#DDD; height: 66.1562px; padding-bottom: 0px;">
+  <div class="wrap">
+    <div class="copy">
+     <h1 style="font-size:13px; color:#4ecdc4;">&copy; <a href="#" target="_blank"></a> Moodways Travel,2017 </h1>
+   </div>
+   <div class="social">
+     <ul>
+       <li class="facebook"><a href="#"><span> </span></a></li>
+       <li class="linkedin"><a href="#"><span> </span></a></li>
+       <li class="twitter"><a href="#"><span> </span></a></li>
+     </ul>
+   </div>
+   <div class="clear"></div>
+ </div>
+</div>
+
+<script src="{% static 'frontend/js/jquery.min.js' %}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static 'frontend/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'frontend/js/jquery.easing.min.js' %}"></script>
+<script src="{% static 'frontend/js/jquery.stellar.js' %}"></script>
+<script src="{% static 'frontend/js/jquery.appear.js' %}"></script>
+<script src="{% static 'frontend/js/jquery.nicescroll.min.js' %}"></script>
+<script src="{% static 'frontend/js/jquery.countTo.js' %}"></script>
+<script src="{% static 'frontend/js/jquery.shuffle.modernizr.js' %}"></script>
+<script src="{% static 'frontend/js/jquery.shuffle.js' %}"></script>
+<script src="{% static 'frontend/js/owl.carousel.js' %}"></script>
+<script src="{% static 'frontend/js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'frontend/js/script.js' %}"></script>
+<script src="{% static 'frontend/js/vertical.js' %}"></script>
+
+<!-- Scrolling Nav JavaScript -->
+<script src="{% static 'frontend/js/jquery.easing.min.js' %}"></script>
+<script src="{% static 'frontend/js/scrolling-nav.js' %}"></script>
+</body>
+</html>

@@ -10,9 +10,45 @@ from django.db.models import Q
 from .models import *
 from .forms import *
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class Test(TemplateView):
-    template_name = "test.html"
+
+class LoginMixin(LoginRequiredMixin):
+    login_url = '/moodwaysAdmin/login/'
+    redirect_field_name = 'redirect_to'
+
+
+class HomeMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(HomeMixin, self).get_context_data(**kwargs)
+        context['menu_root'] = Menu.get_root()
+        return context
+
+
+class Dashboard(HomeMixin, TemplateView):
+    template_name = "dashboard.html"
+
+
+class FrontPageDetailView(HomeMixin, DetailView):
+    model = Page
+    template_name = 'frontPageDetail.html'
+
+
+class HomeView(View):
+    def get(self, request, *args, **kwargs):
+        menu_root = Menu.get_root()
+        sliders = Slider.objects.filter(active=True, deleted_at=None)
+        trailer = Trailer.objects.filter(deleted_at=None).first()
+        promotional_packages = Package.objects.filter(is_promotional=True)
+        blogs = Blog.objects.filter(deleted_at=None).order_by("created_at")[:3]
+        context = {
+            "menu_root": menu_root,
+            "sliders": sliders,
+            "trailer": trailer,
+            "blogs": blogs,
+            "promotional_packages": promotional_packages,
+        }
+        return render(request, 'home.html', context)
 
 
 class RegistrationView(View):
@@ -59,6 +95,7 @@ class LoginView(View):
         return render(request, 'login.html', context)
 
     def post(self, request):
+        redirect = request.GET.get('redirect_to')
         form = LoginForm(request.POST or None)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -67,6 +104,8 @@ class LoginView(View):
             if user and user.is_active:
                 messages.success(request, "Logged In Successfully")
                 login(request, user)
+                if redirect:
+                    return HttpResponseRedirect(redirect)
                 return redirect('website:test')
         messages.warning(request, "Log In Failure")
         context = {
@@ -77,11 +116,11 @@ class LoginView(View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             messages.warning(request, 'You are already logged in.')
-            return redirect('form:test')
+            return redirect('website:test')
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
 
-class LogoutView(View):
+class LogoutView(LoginMixin, View):
 
     def get(self, request, *args, **kwargs):
         if self.request.user.is_authenticated():
@@ -90,7 +129,7 @@ class LogoutView(View):
         return redirect('website:login')
 
 
-class GalleryCreateView(SuccessMessageMixin, CreateView):
+class GalleryCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Gallery
     template_name = 'galleryCreate.html'
     form_class = GalleryForm
@@ -98,15 +137,15 @@ class GalleryCreateView(SuccessMessageMixin, CreateView):
     success_message = "Gallery Successfully Created"
 
 
-class GalleryUpdateView(SuccessMessageMixin, UpdateView):
+class GalleryUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Gallery
     template_name = 'galleryUpdate.html'
     form_class = GalleryForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:galleryList")
     success_message = "Gallery Successfully Updated"
 
 
-class GalleryDetailView(FormView):
+class GalleryDetailView(LoginMixin, FormView):
     form_class = PhotoForm
     template_name = 'galleryDetail.html'
 
@@ -129,15 +168,15 @@ class GalleryDetailView(FormView):
         return HttpResponseRedirect(self.gallery.get_absolute_url())
 
 
-class PhotoUpdateView(SuccessMessageMixin, UpdateView):
+class PhotoUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Photo
     template_name = 'photoUpdate.html'
     form_class = PhotoForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:galleryList")
     success_message = "Photo Successfully Updated"
 
 
-class GalleryListView(ListView):
+class GalleryListView(LoginMixin, ListView):
     model = Gallery
     template_name = 'galleryList.html'
     context_object_name = 'galleries'
@@ -146,37 +185,37 @@ class GalleryListView(ListView):
         return Gallery.objects.filter(deleted_at=None)
 
 
-class GalleryDeleteView(SuccessMessageMixin, DeleteView):
+class GalleryDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Gallery
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:galleryList")
     success_message = "Gallery Successfully Deleted"
 
 
-class PhotoDeleteView(SuccessMessageMixin, DeleteView):
+class PhotoDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Photo
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:galleryList")
     success_message = "Photo Successfully Deleted"
 
 
-class PlaceCreateView(SuccessMessageMixin, CreateView):
+class PlaceCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Place
     template_name = 'placeCreate.html'
     form_class = PlaceForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:placeList")
     success_message = "Place Successfully Created"
 
 
-class PlaceUpdateView(SuccessMessageMixin, UpdateView):
+class PlaceUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Place
     template_name = 'placeUpdate.html'
     form_class = PlaceForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:placeList")
     success_message = "Place Successfully Updated"
 
 
-class PlaceListView(ListView):
+class PlaceListView(LoginMixin, ListView):
     model = Place
     template_name = 'placeList.html'
     context_object_name = 'places'
@@ -185,30 +224,30 @@ class PlaceListView(ListView):
         return Place.objects.filter(deleted_at=None)
 
 
-class PlaceDeleteView(SuccessMessageMixin, DeleteView):
+class PlaceDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Place
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:placeList")
     success_message = "Place Successfully Deleted"
 
 
-class DaysCreateView(SuccessMessageMixin, CreateView):
+class DaysCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Days
     template_name = 'daysCreate.html'
     form_class = DaysForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:daysList")
     success_message = "Days Successfully Created"
 
 
-class DaysUpdateView(SuccessMessageMixin, UpdateView):
+class DaysUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Days
     template_name = 'daysUpdate.html'
     form_class = DaysForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:daysList")
     success_message = "Days Successfully Updated"
 
 
-class DaysListView(ListView):
+class DaysListView(LoginMixin, ListView):
     model = Days
     template_name = 'daysList.html'
     context_object_name = 'days'
@@ -217,30 +256,30 @@ class DaysListView(ListView):
         return Days.objects.filter(deleted_at=None)
 
 
-class DaysDeleteView(SuccessMessageMixin, DeleteView):
+class DaysDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Days
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:daysList")
     success_message = "Days Successfully Deleted"
 
 
-class SeasonCreateView(SuccessMessageMixin, CreateView):
+class SeasonCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Season
     template_name = 'seasonCreate.html'
     form_class = SeasonForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:seasonList")
     success_message = "Season Successfully Created"
 
 
-class SeasonUpdateView(SuccessMessageMixin, UpdateView):
+class SeasonUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Season
     template_name = 'seasonUpdate.html'
     form_class = SeasonForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:seasonList")
     success_message = "Season Successfully Updated"
 
 
-class SeasonListView(ListView):
+class SeasonListView(LoginMixin, ListView):
     model = Season
     template_name = 'seasonList.html'
     context_object_name = 'seasons'
@@ -249,30 +288,30 @@ class SeasonListView(ListView):
         return Season.objects.filter(deleted_at=None)
 
 
-class SeasonDeleteView(SuccessMessageMixin, DeleteView):
+class SeasonDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Season
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:seasonList")
     success_message = "Season Successfully Deleted"
 
 
-class PackageCreateView(SuccessMessageMixin, CreateView):
+class PackageCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Package
     template_name = 'packageCreate.html'
     form_class = PackageForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:packageList")
     success_message = "Package Successfully Created"
 
 
-class PackageUpdateView(SuccessMessageMixin, UpdateView):
+class PackageUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Package
     template_name = 'packageUpdate.html'
     form_class = PackageForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:packageList")
     success_message = "Package Successfully Updated"
 
 
-class PackageDetailView(FormView):
+class PackageDetailView(LoginMixin, FormView):
     form_class = ItenaryForm
     template_name = 'packageDetail.html'
 
@@ -295,7 +334,7 @@ class PackageDetailView(FormView):
         return HttpResponseRedirect(self.package.get_absolute_url())
 
 
-class PackageListView(ListView):
+class PackageListView(LoginMixin, ListView):
     model = Package
     template_name = 'packageList.html'
     context_object_name = 'packages'
@@ -304,45 +343,45 @@ class PackageListView(ListView):
         return Package.objects.filter(deleted_at=None)
 
 
-class ItenaryUpdateView(SuccessMessageMixin, UpdateView):
+class ItenaryUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Itenary
     template_name = 'itenaryUpdate.html'
     form_class = ItenaryForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:packageList")
     success_message = "Itenary Successfully Updated"
 
 
-class PackageDeleteView(SuccessMessageMixin, DeleteView):
+class PackageDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Package
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:packageList")
     success_message = "Package Successfully Deleted"
 
 
-class ItenaryDeleteView(SuccessMessageMixin, DeleteView):
+class ItenaryDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Itenary
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:packageList")
     success_message = "Itenary Successfully Deleted"
 
 
-class PageCreateView(SuccessMessageMixin, CreateView):
+class PageCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Page
     template_name = 'pageCreate.html'
     form_class = PageForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:pageList")
     success_message = "Page Successfully Created"
 
 
-class PageUpdateView(SuccessMessageMixin, UpdateView):
+class PageUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Page
     template_name = 'pageUpdate.html'
     form_class = PageForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:pageList")
     success_message = "Page Successfully Updated"
 
 
-class PageListView(ListView):
+class PageListView(LoginMixin, ListView):
     model = Page
     template_name = 'pageList.html'
     context_object_name = 'pages'
@@ -351,35 +390,35 @@ class PageListView(ListView):
         return Page.objects.filter(deleted_at=None)
 
 
-class PageDetailView(DetailView):
+class PageDetailView(LoginMixin, DetailView):
     model = Page
     template_name = 'pageDetail.html'
 
 
-class PageDeleteView(SuccessMessageMixin, DeleteView):
+class PageDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Page
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:pageList")
     success_message = "Page Successfully Deleted"
 
 
-class BlogCreateView(SuccessMessageMixin, CreateView):
+class BlogCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Blog
     template_name = 'blogCreate.html'
     form_class = BlogForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:blogList")
     success_message = "Blog Successfully Created"
 
 
-class BlogUpdateView(SuccessMessageMixin, UpdateView):
+class BlogUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Blog
     template_name = 'blogUpdate.html'
     form_class = BlogForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:blogList")
     success_message = "Blog Successfully Updated"
 
 
-class BlogListView(ListView):
+class BlogListView(LoginMixin, ListView):
     model = Blog
     template_name = 'blogList.html'
     context_object_name = 'blogs'
@@ -388,19 +427,19 @@ class BlogListView(ListView):
         return Blog.objects.filter(deleted_at=None)
 
 
-class BlogDetailView(DetailView):
+class BlogDetailView(LoginMixin, DetailView):
     model = Blog
     template_name = 'blogDetail.html'
 
 
-class BlogDeleteView(SuccessMessageMixin, DeleteView):
+class BlogDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Blog
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:blogList")
     success_message = "Blog Successfully Deleted"
 
 
-class CommentListView(ListView):
+class CommentListView(LoginMixin, ListView):
     model = Comment
     template_name = 'commentList.html'
     context_object_name = 'comments'
@@ -409,12 +448,12 @@ class CommentListView(ListView):
         return Comment.objects.filter(deleted_at=None)
 
 
-class CommentDetailView(DetailView):
+class CommentDetailView(LoginMixin, DetailView):
     model = Comment
     template_name = 'commentDetail.html'
 
 
-class CommentApproveDisapproveView(View):
+class CommentApproveDisapproveView(LoginMixin, View):
     def get(self, request, *args, **kwargs):
         id = kwargs['pk']
         comment = Comment.objects.get(id=id)
@@ -426,14 +465,14 @@ class CommentApproveDisapproveView(View):
         return redirect("website:commentList")
 
 
-class CommentDeleteView(SuccessMessageMixin, DeleteView):
+class CommentDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Comment
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:commentList")
     success_message = "Comment Successfully Deleted"
 
 
-class MenuCreateView(SuccessMessageMixin, CreateView):
+class MenuCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Menu
     template_name = 'menuCreate.html'
     form_class = MenuForm
@@ -441,7 +480,7 @@ class MenuCreateView(SuccessMessageMixin, CreateView):
     success_message = "Menu Successfully Added"
 
 
-class MenuUpdateView(SuccessMessageMixin, UpdateView):
+class MenuUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Menu
     template_name = 'menuUpdate.html'
     form_class = MenuForm
@@ -449,22 +488,303 @@ class MenuUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "Menu Successfully Updated"
 
 
-class MenuDeleteView(SuccessMessageMixin, DeleteView):
+class MenuDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Menu
     template_name = 'delete.html'
     success_url = reverse_lazy("website:menuList")
     success_message = "Menu Successfully Deleted"
 
 
-class MenuDetailView(DetailView):
+class MenuDetailView(LoginMixin, DetailView):
     model = Menu
     template_name = 'menuDetail.html'
 
 
-class MenuListView(ListView):
+class MenuListView(LoginMixin, ListView):
     model = Menu
     template_name = 'menuList.html'
     context_object_name = 'menus'
 
     def get_queryset(self):
         return Menu.objects.filter(deleted_at=None)
+
+
+class BookingListView(LoginMixin, ListView):
+    model = Booking
+    template_name = 'bookingList.html'
+    context_object_name = 'bookings'
+
+    def get_queryset(self):
+        return Booking.objects.filter(deleted_at=None)
+
+
+class BookingDetailView(LoginMixin, DetailView):
+    model = Booking
+    template_name = 'bookingDetail.html'
+
+
+class SliderCreateView(LoginMixin, SuccessMessageMixin, CreateView):
+    model = Slider
+    template_name = 'sliderCreate.html'
+    form_class = SliderForm
+    success_url = reverse_lazy("website:sliderList")
+    success_message = "slider Successfully Added"
+
+
+class SliderUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
+    model = Slider
+    template_name = 'sliderUpdate.html'
+    form_class = SliderForm
+    success_url = reverse_lazy("website:sliderList")
+    success_message = "Slider Successfully Updated"
+
+
+class SliderDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
+    model = Slider
+    template_name = 'delete.html'
+    success_url = reverse_lazy("website:sliderList")
+    success_message = "Slider Successfully Deleted"
+
+
+class SliderDetailView(LoginMixin, DetailView):
+    model = Slider
+    template_name = 'sliderDetail.html'
+
+
+class SliderListView(LoginMixin, ListView):
+    model = Slider
+    template_name = 'sliderList.html'
+    context_object_name = 'photos'
+
+    def get_queryset(self):
+        return Slider.objects.filter(deleted_at=None)
+
+
+class TrailerCreateView(LoginMixin, SuccessMessageMixin, CreateView):
+    model = Trailer
+    template_name = 'trailerCreate.html'
+    form_class = TrailerForm
+    success_url = reverse_lazy("website:trailerList")
+    success_message = "Trailer Successfully Added"
+
+
+class TrailerUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
+    model = Trailer
+    template_name = 'trailerUpdate.html'
+    form_class = TrailerForm
+    success_url = reverse_lazy("website:trailerList")
+    success_message = "Trailer Successfully Updated"
+
+
+class TrailerDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
+    model = Trailer
+    template_name = 'delete.html'
+    success_url = reverse_lazy("website:trailerList")
+    success_message = "Trailer Successfully Deleted"
+
+
+class TrailerDetailView(LoginMixin, DetailView):
+    model = Trailer
+    template_name = 'trailerDetail.html'
+
+
+class TrailerListView(LoginMixin, ListView):
+    model = Trailer
+    template_name = 'trailerList.html'
+    context_object_name = 'trailers'
+
+    def get_queryset(self):
+        return Trailer.objects.filter(deleted_at=None)
+
+
+def getDateTime(datetime):
+    date, time, meridiem = datetime.split(" ")
+    hour, minute = time.split(":")
+    if meridiem == "PM":
+        hr = int(hour) + 12
+        hr %= 24
+        hour = str(hr)
+    time = hour + ':' + minute
+    datetime = date + ' ' + time
+    return datetime
+
+
+class CouponCreateView(LoginMixin, SuccessMessageMixin, CreateView):
+    model = Coupon
+    template_name = 'couponCreate.html'
+    form_class = CouponForm
+    success_url = reverse_lazy("website:couponList")
+    success_message = "Coupon Successfully Added"
+
+    def form_valid(self, form, **kwargs):
+        couponObjects = Coupon.objects.filter(code=form.instance.code)
+        if couponObjects:
+            messages.error(self.request, "Coupon Code Already Exist!!!")
+            return redirect('website:couponCreate')
+        else:
+            form.instance.valid_from = getDateTime(
+                form.cleaned_data.get('validFrom'))
+            form.instance.valid_to = getDateTime(
+                form.cleaned_data.get('validTo'))
+            form.save()
+
+        return super(CouponCreateView, self).form_valid(form, *kwargs)
+
+    def form_invalid(self, form, **kwargs):
+        print(form.errors)
+
+        return super(CouponCreateView, self).form_invalid(form, *kwargs)
+
+
+class CouponUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
+    model = Coupon
+    template_name = 'couponUpdate.html'
+    form_class = CouponForm
+    success_url = reverse_lazy("website:couponList")
+    success_message = "Coupon Successfully Updated"
+
+    def form_valid(self, form, **kwargs):
+        couponObjects = Coupon.objects.filter(code=form.instance.code)
+        if couponObjects:
+            messages.error(self.request, "Coupon Code Already Exist!!!")
+            return redirect('website:couponCreate')
+        else:
+            form.instance.valid_from = getDateTime(
+                form.cleaned_data.get('validFrom'))
+            form.instance.valid_to = getDateTime(
+                form.cleaned_data.get('validTo'))
+            form.save()
+
+        return super(AdminCouponCreateView, self).form_valid(form, *kwargs)
+
+
+class CouponListView(LoginMixin, ListView):
+    model = Coupon
+    template_name = 'couponList.html'
+    context_object_name = 'coupons'
+
+    def get_queryset(self):
+        return Coupon.objects.filter(deleted_at=None)
+
+
+class CouponDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
+    model = Coupon
+    template_name = 'delete.html'
+    success_url = reverse_lazy("website:couponList")
+    success_message = "Coupon Successfully Deleted"
+
+
+class FrontPackageListView(HomeMixin, ListView):
+    model = Package
+    template_name = 'frontPackageList.html'
+    context_object_name = 'packages'
+    paginate_by = 9
+
+    def get_queryset(self):
+        packages = Package.objects.filter(deleted_at=None)
+        query = self.request.GET.get("q")
+        if query:
+            packages = packages.filter(
+                Q(title__icontains=query) |
+                Q(subTitle__icontains=query)
+            ).distinct()
+        return packages
+
+
+class FrontPackageDetailView(DetailView):
+    model = Package
+    template_name = 'frontPackageDetail.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.slug = kwargs['slug']
+        self.package = Package.objects.get(slug=self.slug)
+        return super(FrontPackageDetailView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(FrontPackageDetailView,
+                        self).get_context_data(**kwargs)
+        context['package'] = self.package
+        context['itenaryList'] = Itenary.objects.filter(package=self.package)
+        gallery = Gallery.objects.filter(package=self.package)
+        context['photos'] = Photo.objects.filter(gallery=gallery)
+
+        return context
+
+
+class FrontBlogListView(HomeMixin, ListView):
+    model = Blog
+    template_name = 'frontBlogList.html'
+    context_object_name = 'blogs'
+    paginate_by = 9
+
+    def get_queryset(self):
+        blogs = Blog.objects.filter(deleted_at=None)
+        query = self.request.GET.get("q")
+        if query:
+            blogs = blogs.filter(
+                Q(title__icontains=query) |
+                Q(subTitle__icontains=query)
+            ).distinct()
+        return blogs
+
+
+class FrontBlogDetailView(HomeMixin, FormView):
+    form_class = CommentForm
+    template_name = 'frontBlogDetail.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.pk = kwargs['pk']
+        self.blog = Blog.objects.get(pk=self.pk)
+        return super(FrontBlogDetailView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(FrontBlogDetailView,
+                        self).get_context_data(**kwargs)
+        context['blog'] = self.blog
+        context['latest_blogs'] = Blog.objects.all().order_by('created_at')[:5]
+        context['comments'] = Comment.objects.filter(
+            blog=self.blog, approved=True)
+        context['count'] = len(Comment.objects.filter(
+            blog=self.blog, approved=True))
+        return context
+
+    def form_valid(self, form):
+        comment = Comment()
+        comment.name = form.cleaned_data.get('name')
+        comment.email = form.cleaned_data.get('email')
+        comment.body = form.cleaned_data.get('body')
+        comment.blog = self.blog
+        comment.save()
+        return HttpResponseRedirect(self.blog.get_absolute_url())
+
+
+class FrontPackageBookingView(View):
+    def get(self, request, *args, **kwargs):
+        form = BookingForm()
+        slug = kwargs["slug"]
+        self.package = Package.objects.get(slug=slug)
+        menu_root = Menu.get_root()
+        context = {
+            'package': self.package,
+            'menu_root': menu_root,
+            'form': form,
+        }
+        return render(request, 'frontBooking.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = BookingForm(request.POST or None)
+        slug = kwargs["slug"]
+        self.package = Package.objects.get(slug=slug)
+        if form.is_valid():
+            form.instance.package = self.package
+            form.save()
+            return redirect('website:home')
+        else:
+            print(form.errors)
+        menu_root = Menu.get_root()
+        context = {
+            'package': self.package,
+            'menu_root': menu_root,
+            'form': form,
+        }
+        return render(request, 'frontBooking.html', context)

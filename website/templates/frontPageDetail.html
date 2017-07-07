@@ -1,0 +1,32 @@
+{% extends 'layouts/frontend/base.html' %}
+{% load staticfiles %}
+ {%block title %}
+ {{block.super}} | {{page.title}}
+ {% endblock %}
+
+
+{% block content %}
+
+
+
+<!-- Intro Header -->
+<header class="intro" style="background-image:url('img/back.jpg'); height:300px;">
+  <div class="intro-body">
+     <div class="container">
+        <div class="row">
+           <div class="brand-heading">
+              <h1 style="color:#FFF;">Normal page</h1>
+          </div>
+      </div>
+  </div>
+</div>
+</header>
+
+
+<h3 style="font-size:25px; margin-left:100px; margin-bottom:60px; margin-top:-250px; margin-right:100px; color:#4ecdc4;">{{page.title}}</h3>
+<div style="font-size:13px; margin-left:100px; margin-right:100px;">
+{{page.body|safe}}
+</div>
+
+
+{% endblock %}

@@ -95,6 +95,7 @@ class Package(Timestampable):
     place = models.ForeignKey(Place, null=True, blank=True)
     day = models.ForeignKey(Days, null=True, blank=True)
     season = models.ForeignKey(Season, null=True, blank=True)
+    is_promotional = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse("website:packageDetail", kwargs={"pk": self.pk})
@@ -129,6 +130,9 @@ class Blog(Timestampable):
     titlePic = models.ImageField(null=True, blank=True)
     caption = models.CharField(max_length=255, null=True, blank=True)
     body = RichTextField()
+
+    def get_absolute_url(self):
+        return reverse("website:frontBlogDetail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.title
@@ -173,6 +177,7 @@ class Booking(Timestampable):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
+    discount_code = models.CharField(max_length=15,null=True, blank=True)
     comments = models.TextField()
 
     def __str__(self):
@@ -203,4 +208,39 @@ class Menu(Timestampable):
         if self.parent:
             if self.parent.title != "root":
                 return self.parent.title + ' : ' + self.title
+        return self.title
+
+
+FILE_CHOICES = (
+    (1, 'Photo'),
+    (2, 'Video')
+)
+
+
+class Slider(Timestampable):
+    file = models.FileField(null=True, blank=True)
+    label = models.CharField(max_length=255, blank=True, null=True)
+    active = models.BooleanField(default=True)
+    fileType = models.PositiveIntegerField(default=1, choices=FILE_CHOICES)
+
+    def __str__(self):
+        return str(self.pk)
+
+
+class Trailer(Timestampable):
+    file = models.FileField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.pk)
+
+
+class Coupon(Timestampable):
+    title = models.CharField(max_length=255)
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    code = models.CharField(max_length=255)
+    valid_from = models.DateTimeField()
+    valid_to = models.DateTimeField()
+    discount_percent = models.FloatField(default=0)
+
+    def __str__(self):
         return self.title

@@ -30,6 +30,40 @@
                     <div class="card-body">
                         <h2>{{package.subTitle}}</h2>
                         <p>{{package.body|safe}}</p>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Key</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Price</td>
+                                    <td>Rs . {{package.price}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Discount</td>
+                                    <td>{{package.discount}} %</td>
+                                </tr>
+                                <tr>
+                                    <td>Gallery</td>
+                                    <td><a href="{% url 'website:galleryDetail' package.gallery.id %}">{{package.gallery}}</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Day</td>
+                                    <td>{{package.day}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Place</td>
+                                    <td>{{package.place}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Season</td>
+                                    <td>{{package.season}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div><!--end .card-body -->
 
                 </article>
@@ -42,7 +76,7 @@
 <!-- BEGIN LAYOUT JUSTIFIED -->
       <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-head">
                 <ul class="nav nav-tabs nav-justified" data-toggle="tabs">
@@ -63,6 +97,19 @@
         </div><!--end .card -->
     </div><!--end .col -->
     <!-- END LAYOUT JUSTIFIED -->
+    <div class="col-md-12">
+    <h2>Itenary Add</h2>
+      <div class="card">
+        <div class="card-body">
+            <form action="" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+                 {% csrf_token %}
+                {{form.as_p}}
+                {{form.media}}
+                <button class="btn ink-reaction btn-primary btn-raised" type="submit">Add/Update</button>
+            </form>
+        </div>
+    </div>
+    </div>
     </div>
 </div>
 

@@ -1,0 +1,26 @@
+{% extends 'layouts/admin/base.html' %}
+
+{% block head_title %}
+    {{block.super}} | Trailer Detail
+{% endblock %}
+
+{% block content %}
+<section>
+<div class="section-body contain-lg">
+<h2>Trailer Detail</h2>
+    <div class="card">
+        <div class="card-body">
+        <video width="100%" controls loop autoplay>
+            <source src="{{trailer.file.url}}" type="video/mp4">
+        </video>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#trailer').addClass('active')
+</script>
+{% endblock %}

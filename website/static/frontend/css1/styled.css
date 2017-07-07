@@ -1,0 +1,130 @@
+
+body {
+
+  color: #808080;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 26px;
+
+  -webkit-font-smoothing: antialiased;
+}
+p {
+  margin-bottom: 26px;
+}
+a {
+  color: #4ecdc4;
+  text-decoration: none !important;
+  -webkit-transition: color 0.3s;
+          transition: color 0.3s;
+}
+a:hover {
+  color: #4c4c4c;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+  color: #4ecdc4;
+
+  font-weight: 400;
+}
+
+.btn2 {
+  font-family: "Brandon Grotesque";
+  font-size: 16px;
+  letter-spacing: 1px;
+  border-radius: 40px;
+  padding: 8px 30px;
+  margin-bottom: 5px;
+  -webkit-transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+          transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+}
+.btn2.btn-lg {
+  padding: 10px 35px;
+  letter-spacing: 2px;
+  font-size: 21px;
+}
+.btn2.btn-sm {
+  padding: 7px 20px;
+  font-size: 14px;
+}
+.btn2.btn-xs {
+  padding: 5px 15px;
+  font-size: 12px;
+}
+.btn2-default {
+  color: #676767;
+  border-color: #e5e5e5;
+}
+.btn2-default:hover {
+  color: #fff;
+  background-color: #4ecdc4;
+  border-color: #4ecdc4;
+}
+.btn2-default-o {
+  color: #f2f2f2;
+  border-color: #f2f2f2;
+  background-color: transparent;
+}
+.btn2-default-o:hover {
+  color: #4ecdc4;
+  background-color: #fff;
+  border-color: #fff;
+}
+.btn2-main-o {
+  color: #4ecdc4;
+  border-color: #4ecdc4;
+  background-color: transparent;
+}
+.btn2-main-o:hover {
+  color: #fff;
+  background-color: #4ecdc4;
+  border-color: #4ecdc4;
+}
+.btn2-dark-o {
+  color: #4c4c4c;
+  border-color: #4c4c4c;
+  background-color: transparent;
+}
+.btn2-dark-o:hover {
+  color: #fff;
+  background-color: #4c4c4c;
+  border-color: #4c4c4c;
+}
+.btn2-dark {
+  color: #fff;
+  background-color: #4c4c4c;
+  border-color: #4c4c4c;
+}
+.btn2-dark:hover,
+.btn2-dark:focus,
+.btn2-dark:active {
+  background-color: #333333;
+  border-color: #333333;
+  color: #fff;
+}
+.btn2-main {
+  color: #fff;
+  background-color: #4ecdc4;
+  border-color: #4ecdc4;
+}
+.btn2-main:hover,
+.btn2-main:focus,
+.btn2-main:active {
+  background-color: #33b5ac;
+  border-color: #33b5ac;
+  color: #fff;
+}
+.btn2-link {
+  font-weight: 400;
+  color: #4ecdc4;
+}
+.btn2-link:hover,
+.btn2-link:focus,
+.btn2-link:active {
+  color: #4c4c4c;
+  text-decoration: none;
+}

@@ -1,0 +1,49 @@
+{% extends 'layouts/admin/base.html' %}
+
+{% block head_title %}
+    {{block.super}} | Slider Detail
+{% endblock %}
+
+{% block content %}
+<section>
+<div class="section-body contain-lg">
+<h2>Slider Detail</h2>
+
+    <div class="card card-tiles style-default-light">
+        <div class="row style-primary">
+            <div class="col-sm-12">
+                <div class="card-body style-default-dark">
+                    <h2><strong>Label:</strong> {{slider.label}}</h2>
+                    <small>Active:{%if slider.active %}True{% else %}False{%endif%}</small>
+                    <div class="text-default-light">Posted by Admin</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- BEGIN BLOG POST TEXT -->
+            <div class="col-md-12">
+                <article class="style-default-bright">
+                    <div>
+                        {% ifequal slider.fileType 1%}
+                        <img class="img-responsive" src="{{slider.file.url}}" alt="" />
+                        {%else %}
+                        <video width="100%" controls loop autoplay>
+                        <source src="{{slider.file.url}}" type="video/mp4">
+                        </video>
+                        {%endifequal%}
+                    </div>
+                </article>
+            </div><!--end .col -->
+            <!-- END BLOG POST TEXT -->
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#slider').addClass('active')
+</script>
+{% endblock %}
