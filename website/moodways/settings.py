@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'moodwaysdb',
         'USER': 'moodwaysuser',
-        'PASSWORD': 'm00dw@y5',
+        'PASSWORD': 'm00dw@y5A--SSAWAS',
         'HOST': 'localhost',
         'PORT': '',
     }
