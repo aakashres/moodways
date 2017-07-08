@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
+from django.shortcuts import HttpResponseRedirect, HttpResponse
+
 
 from .models import *
 from .forms import *
