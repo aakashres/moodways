@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^package/(?P<slug>[\w-]+)/book$',
         FrontPackageBookingView.as_view(), name="frontPackageBooking"),
 
+    url(r'git-pull/$', GitPullView.as_view(), name='git_pull'),
 
 
     url(r'^moodwaysAdmin/dahboard/$', Dashboard.as_view(), name="dashboard"),
