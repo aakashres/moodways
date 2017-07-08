@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'moodwaysdb',
         'USER': 'moodwaysuser',
-        'PASSWORD': 'm00dw@y5',
+        'PASSWORD': 'm00dw@y5A--SSAWAS',
         'HOST': 'localhost',
         'PORT': '',
     }

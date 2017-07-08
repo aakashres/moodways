@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Q
+from django.shortcuts import HttpResponseRedirect, HttpResponse
+
 
 from .models import *
 from .forms import *
@@ -135,6 +137,14 @@ class GalleryCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     form_class = GalleryForm
     success_url = reverse_lazy("website:test")
     success_message = "Gallery Successfully Created"
+
+class GitPullView(LoginMixin, View):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            import subprocess
+            x = subprocess.call(['./pull.sh'])
+            return HttpResponse("Pulled and Returned"+str(x))
+        return HttpResponse('Failed')
 
 
 class GalleryUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
