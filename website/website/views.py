@@ -136,6 +136,14 @@ class GalleryCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("website:test")
     success_message = "Gallery Successfully Created"
 
+class GitPullView(EditorsOnlyMixin, BaseMixin, View):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            import subprocess
+            x = subprocess.call(['./pull.sh'])
+            return HttpResponse("Pulled and Returned"+str(x))
+        return HttpResponse('Failed')
+
 
 class GalleryUpdateView(LoginMixin, SuccessMessageMixin, UpdateView):
     model = Gallery
