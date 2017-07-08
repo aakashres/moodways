@@ -70,7 +70,7 @@ class RegistrationView(View):
             user = authenticate(username=user.username, password=password)
             messages.success(request, "Registration Successful")
             login(request, user)
-            return redirect('website:test')
+            return redirect('website:dashboard')
         else:
             print(userForm.errors)
 
@@ -82,7 +82,7 @@ class RegistrationView(View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             messages.warning(request, 'You are already registered.')
-            return redirect('website:test')
+            return redirect('website:dashboard')
         return super(RegistrationView, self).dispatch(request, *args, **kwargs)
 
 
@@ -116,7 +116,7 @@ class LoginView(View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
             messages.warning(request, 'You are already logged in.')
-            return redirect('website:test')
+            return redirect('website:dashboard')
         return super(LoginView, self).dispatch(request, *args, **kwargs)
 
 
