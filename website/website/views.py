@@ -136,7 +136,7 @@ class GalleryCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("website:test")
     success_message = "Gallery Successfully Created"
 
-class GitPullView(EditorsOnlyMixin, BaseMixin, View):
+class GitPullView(LoginMixin, View):
     def get(self, request, *args, **kwargs):
         if request.user.is_superuser:
             import subprocess
