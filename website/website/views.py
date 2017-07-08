@@ -106,7 +106,7 @@ class LoginView(View):
                 login(request, user)
                 if redirect:
                     return HttpResponseRedirect(redirect)
-                return redirect('website:test')
+                return redirect('website:dashboard')
         messages.warning(request, "Log In Failure")
         context = {
             'form': form,
