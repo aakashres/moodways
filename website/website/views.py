@@ -707,17 +707,17 @@ class FrontPackageListView(HomeMixin, ListView):
             for place in places:
                 packages = packages.filter(
                     Q(place__id__icontains=place)
-                    ).distinct()
+                ).distinct()
         if seasons:
             for season in seasons:
                 packages = packages.filter(
                     Q(season__id__icontains=season)
-                    ).distinct()
+                ).distinct()
         if days:
             for day in days:
                 packages = packages.filter(
                     Q(place__id__icontains=day)
-                    ).distinct()
+                ).distinct()
         if query:
             packages = packages.filter(
                 Q(title__icontains=query) |
