@@ -11,16 +11,14 @@
   <!-- Title for page -->
   <title>Moodways Travels</title>
 
-
-
-
   <!-- Bootstrap Core CSS -->
   <link href="{% static 'frontend/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'frontend/css/bootstrap.css' %}" rel="stylesheet">
   <link href="{% static 'frontend/css/font-awesome.min.css' %}" rel="stylesheet">
 
   <!-- Custom CSS -->
-
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/demo.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'frontend/css/styler.css' %}" />
   <link rel="stylesheet" href="{% static 'frontend/css/main1.css' %}" />
   <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
   <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
@@ -50,6 +48,8 @@
   <link href="{% static 'frontend/css1/main.css' %}" rel="stylesheet">
   <link href="{% static 'frontend/css1/style.css' %}" rel="stylesheet" type="text/css" media="all" />
   <link href="{% static 'frontend/css1/theme.css' %}" rel="stylesheet">
+  <link href="{% static 'frontend/css1/styled.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/css1/custom-styles.css' %}">
 
   <!-- Custom Fonts -->
   <link href="{% static 'frontend/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
@@ -57,16 +57,22 @@
   <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
   <!-- Javascript -->
+  <script type="text/javascript" src="{% static 'frontend/js/modernizr.custom.79639.js' %}"></script>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-  <script type="text/javascript" src="{% static 'frontend/js/jquery.roundabout-1.0.min.js' %}"></script>
 
+
+
+
+  <!-- Scripts -->
 
 </head>
 
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" style="background-color:white;">
+
+
 
   <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
@@ -119,9 +125,9 @@
 
   </header>
 
-
   <section id="main-slider" class="no-margin">
     <div class="carousel slide">
+
       <div class="carousel-inner">
         {% for slider in sliders %}
         {% ifequal slider.fileType 1%}
@@ -156,259 +162,149 @@
         {% endifequal %}
         {% endfor %}
 
+    </div><!--/.carousel-inner-->
+  </div><!--/.carousel-->
+  <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+    <i class="icon-angle-left"></i>
+  </a>
+  <a class="next hidden-xs" href="#main-slider" data-slide="next">
+    <i class="icon-angle-right"></i>
+  </a>
+</section><!--/#main-slider-->
 
-      </div><!--/.carousel-inner-->
-    </div><!--/.carousel-->
-    <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
-      <i class="icon-angle-left"></i>
-    </a>
-    <a class="next hidden-xs" href="#main-slider" data-slide="next">
-      <i class="icon-angle-right"></i>
-    </a>
-  </section><!--/#main-slider-->
+<section class="about" id="about" style="padding-top:0px;">
+ <div class="container">
+  <div class="row">
+   <div class="col-md-12">
+    <div class="section-title st-center row">
+     <p>FIND A TREK</p>
+   </div>
 
-
-  <section class="about" id="about">
-
-   <div class="container">
-    <div class="row">
-     <div class="col-md-12">
-      <div class="section-title st-center row">
-       <p>FIND A TREK</p>
-     </div>
-
-     <div class="row">
-      <div class="container">
+   <div class="row">
+    <div class="container">
 
 
 
 
 
 
-        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
-          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
-            <div class="container" >
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="carousel-content center centered">
-                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
-                    <p class="animation animated-item-2"><div class="checkbox">
-                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div></p>
-
-                    <br>
+      <div class="col-md-4" style="padding-left: 20px; padding-bottom: 10px; width:33%;" >
+        <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
+          <div class="container" >
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="carousel-content center centered">
+                  <h3 class="animation animated-item-1" style="color:#fff;">Destination</h3>
+                  <p class="animation animated-item-2"><div class="checkbox">
+                    <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
                   </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                  </div></p>
+
+                  <br>
                 </div>
               </div>
             </div>
           </div>
-
-
-
-
-
-
-        </div>
-        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
-          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
-            <div class="container" >
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="carousel-content center centered">
-                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
-                    <p class="animation animated-item-2"><div class="checkbox">
-                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div></p>
-
-
-                    <br>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
-          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
-            <div class="container" >
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="carousel-content center centered">
-                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
-                    <p class="animation animated-item-2"><div class="checkbox">
-                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div></p>
-
-
-                    <br>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
 
-        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
-          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
-            <div class="container" >
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="carousel-content center centered">
-                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
-                    <p class="animation animated-item-2"><div class="checkbox">
-                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div></p>
 
 
-                    <br>
+
+
+
+      </div>
+
+      <div class="col-md-4" style="padding-left: 20px; padding-bottom: 10px; width:33%;" >
+        <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
+          <div class="container" >
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="carousel-content center centered">
+                  <h3 class="animation animated-item-1" style="color:#fff;">Season</h3>
+                  <p class="animation animated-item-2"><div class="checkbox">
+                    <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
                   </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                  </div></p>
+
+
+                  <br>
                 </div>
               </div>
             </div>
           </div>
-
-        </div>
-
-        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
-          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
-            <div class="container" >
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="carousel-content center centered">
-                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
-                    <p class="animation animated-item-2"><div class="checkbox">
-                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div></p>
-
-
-                    <br>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="col-md-2" style="padding-left: 20px; padding-bottom: 10px;" >
-          <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
-            <div class="container" >
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="carousel-content center centered">
-                    <h3 class="animation animated-item-1" style="color:#fff;">DESTINATION</h3>
-                    <p class="animation animated-item-2"><div class="checkbox">
-                      <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                    </div>
-                    <div class="checkbox">
-                      <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                    </div></p>
-
-
-                    <br>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
 
       </div>
 
+      <div class="col-md-4" style="padding-left: 20px; padding-bottom: 10px; width:33%;" >
+        <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
+          <div class="container" >
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="carousel-content center centered">
+                  <h3 class="animation animated-item-1" style="color:#fff;">Days</h3>
+                  <p class="animation animated-item-2"><div class="checkbox">
+                    <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                  </div>
+                  <div class="checkbox">
+                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
+                  </div></p>
 
+
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
+
   </div>
+
+</div>
 
 
 
@@ -434,13 +330,14 @@
 <div class="section section-white">
  <div class="container">
   <div class="row">
-    <div class="section-title st-center">
+    <div class="section-title st-center" style="padding-top:0px;">
      <p>TRAILERS</p>
    </div>
-   <div class="item" >
+   <div class="item" style="padding:0px 100px 0px 100px;" >
     <div class="fullscreen-bg">
-     <video controls loop muted autoplay poster="{% static 'frontend/img/slides/3.jpg' %}" class="fullscreen-bg__video">
+     <video loop muted autoplay poster="{% static 'frontend/img/slides/3.jpg' %}" class="fullscreen-bg__video">
       <source src="{{trailer.file.url}}" type="video/mp4">
+
       </video>
     </div>
 
@@ -448,101 +345,110 @@
 </div>
 </div>
 </div>
-<!-- End Services -->
 
-
-
-<section class="blog" id="blog" style="padding-bottom: 0px;">
- <div class="container">
-  <div class="row">
-   <div class="col-md-12">
-    <div class="section-title st-center">
-     <h3>Recent Blogs</h3>
-   </div>
- </div>
+<div class="section-title st-center" style="padding-top:0px;">
+ <p>Promotional package</p>
 </div>
+<div class="container">
+
+
+ <section class="main">
+
+  <div class="ia-container" style="width:100%; border:none; height:500px; ">
+  {% for package in promotional_packages%}
+   <figure class="img img-responsive" style="width:700px;">
+    <img src="{{package.titlePic.url}}" alt="image01" class="img img-responsive"/>
+    <input type="radio" name="radio-set" {% if forloop.counter == 1%}checked="checked" {% endif %}/>
+    <figcaption><span>{{package.title}}</span></figcaption>
+  {% endfor %}
+  {% for package in promotional_packages%}
+  </figure>
+  {%endfor%}
+
+</div><!-- ia-container -->
+
+</section>
+
+</div>
+
+<div class="section-title st-center" style="margin-top:-60px;" >
+ <p>Social</p>
+</div>
+
+
+
 
 
 <div class="main" >
   <div class="wrap">
-    <div class="pages">
+    <div class="pages" style="padding-top: 0px;">
       <!-- Row 1 -->
       <div class="blog-top">
-
-
       {% for blog in blogs %}
-       <!-- Block 1 -->
+      <!-- Block 1 -->
        <div class="col_1_of_b span_1_of_b">
-         <a href="blog-post.html"><img src="{{blog.titlePic.url}}" alt=""></a>
-         <div class="blog-poast-admin">
-          <a href="#">{{blog.created_at|date:"M"}}</a>
-        </div>
-        <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-          <ul>
-           <li><i class="admin"> </i><a class="admin"  href="#"><span> </span> {{blog.author}}</a></li>
-         </ul>
+         <a href="{% url 'website:frontBlogDetail' blog.id %}"><img src="{{blog.titlePic.url}}" alt=""></a>
+
+         <h3><a href="{% url 'website:frontBlogDetail' blog.id %}">{{blog.title}}</a></h3>
+         <div class="button"><a href="{% url 'website:frontBlogDetail' blog.id %}">+See Blog Details</a></div>
        </div>
-       <h3><a href="#">{{blog.title}}</a></h3>
-       {{blog.body|safe|truncatewords:10}}
-       <div class="button"><a href="{% url 'website:frontBlogDetail' blog.id %}">+Read More</a></div>
+      {% endfor %}
+
+       <div class="clear"></div>
      </div>
-     {% endfor ss%}
+     <div class="c2a">
 
-<div class="clear"></div>
-</div>
-<div class="c2a">
-
- <a href="{% url 'website:frontBlogList' %}" class="btn btn-main btn-lg glyphicon ">Read More</a>
-</div>
-</section>
-
-<section class="slide-wrapper" >
-
-  <div class="container" style="height: 500px;">
-
-    <div class="row" style="padding-left:20px; padding-right:20px;">
-     <div class="col-md-12">
-      <div class="section-title st-center">
-       <p>PROMOTIONAL PACKAGE</p>
-
+       <a href="{% url 'website:frontBlogList' %}" class="btn btn-main btn-lg glyphicon ">See blog list</a>
      </div>
-   </div>
-   <div id="myCarousel" class="carousel slide" style="height:500px">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-    {% for package in promotional_packages %}
-      <li data-target="#myCarousel" data-slide-to="{{forloop.counter|subtract}}" class="{% if forloop.counter == 1%}active{% endif %}"></li>
-    {% endfor %}
-    </ol>
+   </section>
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-    {% for package in promotional_packages %}
-    <div class="item item3 {% if forloop.counter == 1%}active{% endif %}">
-        <div class="fill" style=" background-color:#48c3af;">
-          <div class="inner-content">
-            <div class="col-md-6">
-              <div class="carousel-img">
-                <img src="{% static 'frontend/img/back.jpg' %}" alt="sofa" class="img img-responsive" />
+   <section class="slide-wrapper" >
+
+    <div class="container" style="height: 500px;">
+
+      <div class="row" style="padding-left:20px; padding-right:20px;">
+       <div class="col-md-12">
+        <div class="section-title st-center">
+         <p>PROMOTIONAL PACKAGE</p>
+
+       </div>
+     </div>
+     <div id="myCarousel" class="carousel slide" style="height:500px">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+      {% for package in promotional_packages %}
+        <li data-target="#myCarousel" data-slide-to="{{forloop.counter|subtract}}" class="{% if forloop.counter == 1%}active{% endif %}"></li>
+      {% endfor %}
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+      {% for package in promotional_packages %}
+      <div class="item item3 {% if forloop.counter == 1%}active{% endif %}">
+          <div class="fill" style=" background-color:#48c3af;">
+            <div class="inner-content">
+              <div class="col-md-6">
+                <div class="carousel-img">
+                  <img src="{{package.titlePic.url}}" alt="sofa" class="img img-responsive" />
+                </div>
               </div>
-            </div>
-            <div class="col-md-6 text-left">
-              <div class="carousel-desc">
+              <div class="col-md-6 text-left">
+                <div class="carousel-desc">
 
-                <h2 style="color:#fff;">Nepal</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis elit ipsum, scelerisque non semper eu, aliquet vel odio. Sed auctor id purus nec tristique. Donec euismod, urna vel dapibus tristique, dolor arcu ultrices lectus, nec pulvinar est turpis sit amet felis. Duis interdum purus quam, vitae cursus erat ornare at. Donec congue mi a ipsum tincidunt, imperdiet vehicula odio rutrum. Nam porta vulputate magna, id pretium lectus iaculis eu. Ut ut viverra libero.</p>
-                <div class="c2a">
+                  <h2 style="color:#fff;">{{package.title}}</h2>
+                  {{package.body|safe|truncatewords:50}}
+                  <div class="c2a">
 
-                 <a href="#" class="btn btn-main btn-lg glyphicon ">Read More</a>
+                   <a href="{% url 'website:frontPackageDetail' package.slug %}" class="btn btn-main btn-lg glyphicon ">Read More</a>
+                 </div>
                </div>
              </div>
            </div>
          </div>
        </div>
-     </div>
-    {% endfor %}
+      {% endfor %}
 
-</div>
+ </div>
 </div>
 </div>
 </section>
@@ -671,14 +577,16 @@
 </div>
 </section>
 
-<div class="jquery-script-clear"></div>
+
+
+
 </div>
 </div>
 
 
 <section id="contact" >
-  <div class="container" data-stellar-background-ratio="0.4" class="img img-responsive">
-    <div class="row">
+  <div class="container" data-stellar-background-ratio="0.4" class="img img-responsive" style=" background:url({% static 'frontend/img/fback.jpg' %}); background-size:cover; background-position:fixed;">
+    <div class="row" style="margin-top:20px; margin-bottom:20px; ">
       <div class="col-md-3">
         <a href="#" class="fa fa-map-marker" style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Quick Links</h4> </a>
         <ul>
@@ -713,7 +621,7 @@
           <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Jumla</a> </li>
           <li><a href="#" class="fa fa-map-marker" style="color:#fff;">Far west Nepal</a> </li>
           <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Pokhara</a> </li>
-          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Chitwan</a> </li>
+
         </ul>
       </div>
       <div class="col-md-3">
@@ -731,7 +639,8 @@
 
 
 
-<div class="footer-bottom" style="background-color:#DDD; height: 66.1562px; padding-bottom: 0px;">
+<!-- Bottom footer -->
+<div class="footer-bottom" style="background-color:#DDD;">
   <div class="wrap">
     <div class="copy">
      <h1 style="font-size:13px; color:#4ecdc4;">&copy; <a href="#" target="_blank"></a> Moodways Travel,2017 </h1>
@@ -747,9 +656,9 @@
  </div>
 </div>
 
-<script src="{% static 'frontend/js/jquery.min.js' %}"></script>
+
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{% static 'frontend/js/bootstrap.min.js' %}"></script>
+
 <script src="{% static 'frontend/js/jquery.easing.min.js' %}"></script>
 <script src="{% static 'frontend/js/jquery.stellar.js' %}"></script>
 <script src="{% static 'frontend/js/jquery.appear.js' %}"></script>
@@ -759,9 +668,11 @@
 <script src="{% static 'frontend/js/jquery.shuffle.js' %}"></script>
 <script src="{% static 'frontend/js/owl.carousel.js' %}"></script>
 <script src="{% static 'frontend/js/jquery.ajaxchimp.min.js' %}"></script>
-<script src="{% static 'frontend/js/script.js' %}"></script>
+
 <script src="{% static 'frontend/js/vertical.js' %}"></script>
 
+<script src="{% static 'frontend/js/jquery2.min.js' %}"></script>
+<script src="{% static 'frontend/js/bootstrap.min.js' %}"></script>
 <!-- Scrolling Nav JavaScript -->
 <script src="{% static 'frontend/js/jquery.easing.min.js' %}"></script>
 <script src="{% static 'frontend/js/scrolling-nav.js' %}"></script>

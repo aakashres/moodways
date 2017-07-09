@@ -23,7 +23,7 @@ nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
 body{
-	font-family: "Brandon Grotesque";
+	font-family: "Montserrat";
 	background:#fff;
 	background: url(../images/banner_bg.jpg) no-repeat center fixed;
 	-webkit-background-size: cover;
