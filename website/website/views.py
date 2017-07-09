@@ -43,11 +43,17 @@ class HomeView(View):
         trailer = Trailer.objects.filter(deleted_at=None).first()
         promotional_packages = Package.objects.filter(is_promotional=True)
         blogs = Blog.objects.filter(deleted_at=None).order_by("created_at")[:3]
+        places = Place.objects.all()[:6]
+        seasons = Season.objects.all()[:6]
+        days = Days.objects.all()[:6]
         context = {
             "menu_root": menu_root,
             "sliders": sliders,
             "trailer": trailer,
             "blogs": blogs,
+            "places": places,
+            "seasons": seasons,
+            "days": days,
             "promotional_packages": promotional_packages,
         }
         return render(request, 'home.html', context)
@@ -138,12 +144,13 @@ class GalleryCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("website:test")
     success_message = "Gallery Successfully Created"
 
+
 class GitPullView(LoginMixin, View):
     def get(self, request, *args, **kwargs):
         if request.user.is_superuser:
             import subprocess
             x = subprocess.call(['./pull.sh'])
-            return HttpResponse("Pulled and Returned"+str(x))
+            return HttpResponse("Pulled and Returned" + str(x))
         return HttpResponse('Failed')
 
 
@@ -693,6 +700,24 @@ class FrontPackageListView(HomeMixin, ListView):
     def get_queryset(self):
         packages = Package.objects.filter(deleted_at=None)
         query = self.request.GET.get("q")
+        places = self.request.GET.getlist("destination")
+        seasons = self.request.GET.getlist("season")
+        days = self.request.GET.getlist("day")
+        if places:
+            for place in places:
+                packages = packages.filter(
+                    Q(place__id__icontains=place)
+                    ).distinct()
+        if seasons:
+            for season in seasons:
+                packages = packages.filter(
+                    Q(season__id__icontains=season)
+                    ).distinct()
+        if days:
+            for day in days:
+                packages = packages.filter(
+                    Q(place__id__icontains=day)
+                    ).distinct()
         if query:
             packages = packages.filter(
                 Q(title__icontains=query) |

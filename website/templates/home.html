@@ -172,6 +172,7 @@
   </a>
 </section><!--/#main-slider-->
 
+<form action="{% url 'website:frontPackageList' %}" method="get">
 <section class="about" id="about" style="padding-top:0px;">
  <div class="container">
   <div class="row">
@@ -179,15 +180,8 @@
     <div class="section-title st-center row">
      <p>FIND A TREK</p>
    </div>
-
    <div class="row">
     <div class="container">
-
-
-
-
-
-
       <div class="col-md-4" style="padding-left: 20px; padding-bottom: 10px; width:33%;" >
         <div class="item" style="background-image: url({% static 'frontend/img/nepal.jpg' %})">
           <div class="container" >
@@ -195,24 +189,13 @@
               <div class="col-sm-12">
                 <div class="carousel-content center centered">
                   <h3 class="animation animated-item-1" style="color:#fff;">Destination</h3>
-                  <p class="animation animated-item-2"><div class="checkbox">
-                    <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
-                  </div>
+                  <p class="animation animated-item-2">
+                  {% for place in places%}
                   <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    <label><input type="checkbox" name="destination" value="{{place.id}}"  ><h8 style="color:#fff;">{{place.name}}</h8></label>
                   </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                  </div></p>
+                  {%endfor%}
+                  </p>
 
                   <br>
                 </div>
@@ -235,24 +218,12 @@
               <div class="col-sm-12">
                 <div class="carousel-content center centered">
                   <h3 class="animation animated-item-1" style="color:#fff;">Season</h3>
-                  <p class="animation animated-item-2"><div class="checkbox">
-                    <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
-                  </div>
+                  <p class="animation animated-item-2">
+                  {% for season in seasons %}
                   <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    <label><input type="checkbox" name="season" value="{{season.id}}"  ><h8 style="color:#fff;">{{season.name}}</h8></label>
                   </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                  </div></p>
+                  {%endfor%}</p>
 
 
                   <br>
@@ -271,24 +242,12 @@
               <div class="col-sm-12">
                 <div class="carousel-content center centered">
                   <h3 class="animation animated-item-1" style="color:#fff;">Days</h3>
-                  <p class="animation animated-item-2"><div class="checkbox">
-                    <label><input type="checkbox" value=""  ><h8 style="color:#fff;">Option 1</h8></label>
-                  </div>
+                  <p class="animation animated-item-2">
+                  {% for day in days %}
                   <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
+                    <label><input type="checkbox" name="day" value="{{day.id}}"  ><h8 style="color:#fff;">{{day}}</h8></label>
                   </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 1</h8></label>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 2</h8></label>
-                  </div>
-                  <div class="checkbox">
-                    <label><input type="checkbox" value=""><h8 style="color:#fff;">Option 3</h8></label>
-                  </div></p>
+                  {%endfor%}</p>
 
 
                   <br>
@@ -322,11 +281,12 @@
 <div class="row" style="padding-top:30px;">
  <div class="col-md-12">
   <div class="c2a">
-
-   <a href="#" class="btn btn-main btn-lg glyphicon glyphicon-search">Find a Trek</a>
+  <button type="submit" class="btn btn-main btn-lg glyphicon glyphicon-search"> Find a trek</button>
  </div>
 </div>
 </div>
+</form>
+
 <div class="section section-white">
  <div class="container">
   <div class="row">
