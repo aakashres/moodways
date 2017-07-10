@@ -41,11 +41,12 @@ class HomeView(View):
         menu_root = Menu.get_root()
         sliders = Slider.objects.filter(active=True, deleted_at=None)
         trailer = Trailer.objects.filter(deleted_at=None).first()
-        promotional_packages = Package.objects.filter(is_promotional=True)
+        promotional_packages = Package.objects.filter(
+            deleted_at=None, is_promotional=True)
         blogs = Blog.objects.filter(deleted_at=None).order_by("created_at")[:3]
-        places = Place.objects.all()[:6]
-        seasons = Season.objects.all()[:6]
-        days = Days.objects.all()[:6]
+        places = Place.objects.filter(deleted_at=None)[:6]
+        seasons = Season.objects.filter(deleted_at=None)[:6]
+        days = Days.objects.filter(deleted_at=None)[:6]
         context = {
             "menu_root": menu_root,
             "sliders": sliders,

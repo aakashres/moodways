@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block head_title %}
-    {{block.super}} | Days List
+    {{block.super}} | Gallery List
 {% endblock %}
 
 {%block extra_head %}
@@ -14,7 +14,7 @@
 {% block content %}
 <section>
 <div class="section-body">
-<h2>Days List</h2>
+<h2>Gallery List</h2>
     <div class="card">
         <div class="card-body">
         <a  style="margin-bottom: 10px;" class="btn ink-reaction btn-floating-action btn-primary pull-right" href ="{% url 'website:galleryCreate' %}"><i class="fa fa-plus"></i></a>
