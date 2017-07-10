@@ -142,7 +142,7 @@ class GalleryCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Gallery
     template_name = 'galleryCreate.html'
     form_class = GalleryForm
-    success_url = reverse_lazy("website:test")
+    success_url = reverse_lazy("website:galleryList")
     success_message = "Gallery Successfully Created"
 
 
