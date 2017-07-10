@@ -149,6 +149,14 @@ class PackageForm(forms.ModelForm):
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({'class': 'form-control'})
         self.fields['is_promotional'].widget.attrs.update({'class': ''})
+        self.fields['place'].queryset = Place.objects.filter(
+            deleted_at=None)
+        self.fields['season'].queryset = Season.objects.filter(
+            deleted_at=None)
+        self.fields['day'].queryset = Days.objects.filter(
+            deleted_at=None)
+        self.fields['gallery'].queryset = Gallery.objects.filter(
+            deleted_at=None)
 
 
 class ItenaryForm(forms.ModelForm):
