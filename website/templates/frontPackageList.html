@@ -41,7 +41,7 @@
                                     {% for package in packages %}
                                     <!-- Block 1 -->
                                     <div class="col_1_of_b2 span_1_of_b2">
-                                        <a><img src="{{package.titlePic.url}}" alt=""></a>
+                                        <a href="{% url 'website:frontPackageDetail' package.slug %}"><img src="{{package.titlePic.url}}" alt=""></a>
                                         <div class="blog-poast-admin2">
                                             <a>{{package.created_at|date:"M d"}}</a>
                                         </div>
@@ -50,8 +50,8 @@
                                             <li><i class="admin"> </i><a class="admin"><span> </span>Rs.{{package.price}} {{package.discount}}%</a></li>
                                             </ul>
                                         </div>
-                                        <h3 style="font-size:15px;"><a href="">{{package.title}}</a></h3>
-                                        <div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
+                                        <h3 style="font-size:15px;"><a href="{% url 'website:frontPackageDetail' package.slug %}">{{package.title}}</a></h3>
+                                        <div class="button" style="background-color:transparent; "><a href="{% url 'website:frontPackageDetail' package.slug %}">+See package details</a></div>
                                     </div>
                                     {% endfor %}
                                     <div class="clear"></div>
