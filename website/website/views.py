@@ -777,7 +777,7 @@ class FrontBlogDetailView(HomeMixin, FormView):
         context = super(FrontBlogDetailView,
                         self).get_context_data(**kwargs)
         context['blog'] = self.blog
-        context['latest_blogs'] = Blog.objects.all().order_by('created_at')[:5]
+        context['latest_blogs'] = Blog.objects.all().order_by('created_at')[:3]
         context['comments'] = Comment.objects.filter(
             blog=self.blog, approved=True)
         context['count'] = len(Comment.objects.filter(

@@ -7,19 +7,34 @@
 
 {% block content %}
 
-<!-- Location -->
-  <div class="footer-bottom" style="background-color:transparent; margin-top:40px;">
-        <div class="wrap">
-            <div class="copy" style="margin-left:100px;">
-           <h1 style="font-size:13px; color:#666"><a href="{% url 'website:home' %}" >Home</a></h1>
-          </div>
-        <div class="copy">
-           <h1 style="font-size:13px; color:#666"><a href="{% url 'website:frontPackageList' %}" > >>Packages</a></h1>
-          </div>
-          <div class="clear"></div>
+<div class="footer-bottom" style="background-color:transparent; margin-top:40px;">
+<div class="row">
+<div class="col-md-6">
+      <div class="wrap">
+        <div class="copy2" style="margin-left:100px; ">
+           <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:home' %}" target="_blank">Home</a></h1>
         </div>
-       </div>
-<!-- Blog Section -->
+        <div class="copy2">
+           <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:frontPackageList' %}" target="_blank"> >>Package Grid</a></h1>
+        </div>
+
+        <div class="clear"></div>
+      </div>
+      </div>
+      <div class="col-md-6">
+      <div class="footer-bottom" style="background-color:transparent;margin-bottom:-40px; margin-top:-40px; padding:0px 170px;">
+        <form method="get" action=".">
+            <div class="input-group">
+                <div class="input-group">
+                  <input type="Search" class="form-control" name="q" placeholder="Search" aria-describedby="basic-addon2">
+                  <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
+                </div>
+            </div>
+        </form>
+    </div>
+      </div>
+      </div>
+</div>
 <div class="section">
     <div class="container">
         <div class="row">
@@ -40,18 +55,18 @@
                                     {% endif %}
                                     {% for package in packages %}
                                     <!-- Block 1 -->
-                                    <div class="col_1_of_b2 span_1_of_b2">
+                                    <div class="col_1_of_b2 span_1_of_b2" style="background-color:#ececec;padding:10px;border-radius:5px;">
                                         <a href="{% url 'website:frontPackageDetail' package.slug %}"><img src="{{package.titlePic.url}}" alt=""></a>
                                         <div class="blog-poast-admin2">
                                             <a>{{package.created_at|date:"M d"}}</a>
                                         </div>
-                                        <div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
+                                        <div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; ">
                                             <ul>
-                                            <li><i class="admin"> </i><a class="admin"><span> </span>Rs.{{package.price}} {{package.discount}}%</a></li>
+                                            <li><i class="admin"> </i><a class="admin"><span> </span>Rs.{{package.price}}, {{package.discount}}%</a></li>
                                             </ul>
                                         </div>
                                         <h3 style="font-size:15px;"><a href="{% url 'website:frontPackageDetail' package.slug %}">{{package.title}}</a></h3>
-                                        <div class="button" style="background-color:transparent; "><a href="{% url 'website:frontPackageDetail' package.slug %}">+See package details</a></div>
+                                        <div class="button"><a href="{% url 'website:frontPackageDetail' package.slug %}">See package details</a></div>
                                     </div>
                                     {% endfor %}
                                     <div class="clear"></div>
@@ -108,19 +123,6 @@
      </li>
      {% endif %}
    </ul>
-
-   <!-- Social -->
-   <div class="footer-bottom" style="background-color:#FFF; margin-left:100px;">
-    <div class="wrap">
-      <div class="social2">
-       <ul>
-        <li class="facebook2"><a href="#"><span> </span></a></li>
-        <li class="linkedin2"><a href="#"><span></span></a></li>
-        <li class="twitter2"><a href="#"><span> </span></a></li>
-      </ul>
-
-
-    </div>
     <div class="clear"></div>
   </div>
 </div>

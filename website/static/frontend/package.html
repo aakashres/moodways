@@ -25,8 +25,10 @@
 	
         				   	<link rel="stylesheet" type="text/css" href="css1/style2.css"/>
 	<link href="css1/main.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
 	<link href="css1/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css1/theme.css" rel="stylesheet">
+
                               <link href="css1/styled.css" rel="stylesheet">
 	<link rel="stylesheet" href="css1/custom-styles.css">
 <!-- Custom Fonts -->
@@ -39,6 +41,22 @@
  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.roundabout-1.0.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="js/logger.js"></script>
+        <script src="js/treeview.js"></script>
+        
+        <script>
+            $('#treeview-checkbox-demo').treeview({
+                debug : true,
+                data : ['links', 'Do WHile loop']
+            });
+            $('#show-values').on('click', function(){ 
+                $('#values').text(
+                    $('#treeview-checkbox-demo').treeview('selectedValues')
+                );
+            });
+        </script>
 
  </head>
 
@@ -170,143 +188,105 @@
 				 <div class="blog-top">
 				 
 				 <!-- Block 1 -->
-		   <div class="col_1_of_b2 span_1_of_b2">
-						<a><img src="img/b1.jpg" alt=""></a>
-						<div class="blog-poast-admin2">
-							<a>05<br>Days</a>
-						</div>
-						<div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
-								<ul>
-									<li><i class="admin"> </i><a class="admin"><span> </span>Rs.1200 Rs.1100</a></li>
-								</ul>
-							</div>
-						<h3 style="font-size:15px;"><a href="#">PAckage name here</a></h3>
-						<div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
-					</div>
-					
-					<!-- Block 2 -->
-					   <div class="col_1_of_b2 span_1_of_b2">
-						<a><img src="img/b1.jpg" alt=""></a>
-								<div class="blog-poast-admin2">
-							<a>05<br>Days</a>
-						</div>
-						<div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
-								<ul>
-									<li><i class="admin"> </i><a class="admin"><span> </span>Rs.1200 Rs.1100</a></li>
-								</ul>
-							</div>
-						<h3 style="font-size:15px;"><a href="#">PAckage name here</a></h3>
-						<div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
-					</div>
-					
-					<!-- Block 3 -->
-				   <div class="col_1_of_b2 span_1_of_b2">
-						<a><img src="img/b1.jpg" alt=""></a>
-								<div class="blog-poast-admin2">
-							<a>05<br>Days</a>
-						</div>
-						<div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
-								<ul>
-									<li><i class="admin"> </i><a class="admin"><span> </span>Rs.1200 Rs.1100</a></li>
-								</ul>
-							</div>
-						<h3 style="font-size:15px;"><a href="#">PAckage name here</a></h3>
-						<div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
-					</div>
-					
+		  <div class="grid" style="margin-left:-50px; margin-right:-10px;">
+							<figure class="portfolio-item" style="margin:10px; margin-right:0px;">
+								<img src="img/b1.jpg" alt=""/><b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
 
-				 
-				 <!-- Block 1 -->
-			   <div class="col_1_of_b2 span_1_of_b2" style="margin-left:0px;">
-						<a><img src="img/b1.jpg" alt=""></a>
-								<div class="blog-poast-admin2">
-							<a>05<br>Days</a>
-						</div>
-						<div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
-								<ul>
-									<li><i class="admin"> </i><a class="admin"><span> </span>Rs.1200 Rs.1100</a></li>
-								</ul>
-							</div>
-						<h3 style="font-size:15px;"><a href="#">PAckage name here</a></h3>
-						<div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
-					</div>
-					
-					<!-- Block 2 -->
-				   <div class="col_1_of_b2 span_1_of_b2">
-						<a><img src="img/b1.jpg" alt=""></a>
-								<div class="blog-poast-admin2">
-							<a>05<br>Days</a>
-						</div>
-						<div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
-								<ul>
-									<li><i class="admin"> </i><a class="admin"><span> </span>Rs.1200 Rs.1100</a></li>
-								</ul>
-							</div>
-						<h3 style="font-size:15px;"><a href="#">PAckage name here</a></h3>
-						<div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
-					</div>
-					
-					<!-- Block 3 -->
-					   <div class="col_1_of_b2 span_1_of_b2">
-						<a><img src="img/b1.jpg" alt=""></a>
-								<div class="blog-poast-admin2">
-							<a>05<br>Days</a>
-						</div>
-						<div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
-								<ul>
-									<li><i class="admin"> </i><a class="admin"><span> </span>Rs.1200 Rs.1100</a></li>
-								</ul>
-							</div>
-						<h3 style="font-size:15px;"><a href="#">PAckage name here</a></h3>
-						<div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
-					</div>
-					
+									<h2>China</h2>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i> Book Package</a>
+								</figcaption>
+							</figure>
+							
+							<figure class="portfolio-item" style="margin:10px; margin-right:0px;">
+								<img src="img/b1.jpg" alt=""/><b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
 
-				 
-				 <!-- Block 1 -->
-				   <div class="col_1_of_b2 span_1_of_b2" style="margin-left:0px;">
-						<a><img src="img/b1.jpg" alt=""></a>
-								<div class="blog-poast-admin2">
-							<a>05<br>Days</a>
+									<p>Japan</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i> Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px; margin-right:0px;">
+								<img src="img/b1.jpg" alt=""/><b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+
+									<p>USA</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i>Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px;">
+								<img src="img/b1.jpg" alt=""/> <b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+
+									<p>Australia</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i> Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px;">
+								<img src="img/b1.jpg" alt=""/><b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+
+									<p>Canada</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i> Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px;">
+								<img src="img/b1.jpg" alt=""/><b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+
+									<p>Norway</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i> Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px;">
+								<img src="img/b1.jpg" alt=""/> <b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+                                                                            <p>Kathmandu</P>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i>Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px;">
+								<img src="img/b1.jpg" alt=""/>   <b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+
+									<p>Thailand</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i>Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px;">
+								<img src="img/b1.jpg" alt=""/> <b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+
+									<p>Singapore</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i>Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px;">
+								<img src="img/b1.jpg" alt=""/><b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+
+									<p>Dubai</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i>Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px;">
+								<img src="img/b1.jpg" alt=""/> <b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+
+									<p>Sri Lanka</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i> Book Package</a>
+								</figcaption>
+							</figure>
+							<figure class="portfolio-item" style="margin:10px;">
+								<img src="img/b1.jpg" alt=""/> <b style="color:white; size:12px;">Discount 10%</b>
+								<figcaption>
+
+									<p>Chitwan</p>
+									<a href="#" class="btn btn-main"><i class="fa fa-link"></i>Book Package</a>
+								</figcaption>
+							</figure>
 						</div>
-						<div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
-								<ul>
-									<li><i class="admin"> </i><a class="admin"><span> </span>Rs.1200 Rs.1100</a></li>
-								</ul>
-							</div>
-						<h3 style="font-size:15px;"><a href="#">PAckage name here</a></h3>
-						<div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
-					</div>
-					
-					<!-- Block 2 -->
-					   <div class="col_1_of_b2 span_1_of_b2">
-						<a><img src="img/b1.jpg" alt=""></a>
-								<div class="blog-poast-admin2">
-							<a>05<br>Days</a>
-						</div>
-						<div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
-								<ul>
-									<li><i class="admin"> </i><a class="admin"><span> </span>Rs.1200 Rs.1100</a></li>
-								</ul>
-							</div>
-						<h3 style="font-size:15px;"><a href="#">PAckage name here</a></h3>
-						<div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
-					</div>
-					
-					<!-- Block 3 -->
-					   <div class="col_1_of_b2 span_1_of_b2">
-						<a><img src="img/b1.jpg" alt=""></a>
-								<div class="blog-poast-admin2">
-							<a>05<br>Days</a>
-						</div>
-						<div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; margin-left:40px;">
-								<ul>
-									<li><i class="admin"> </i><a class="admin"><span> </span>Rs.1200 Rs.1100</a></li>
-								</ul>
-							</div>
-						<h3 style="font-size:15px;"><a href="#">PAckage name here</a></h3>
-						<div class="button" style="background-color:transparent; "><a href="#">+See package details</a></div>
-					</div>
+
 					
 				<div class="clear"></div>
 				</div>
@@ -407,82 +387,49 @@
 						
 						<h4>Filters</h4>
 						
-						<div class="checkbox">
-  <label><input type="checkbox" value=""  ><h8 style="color:#000;">Option 1</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 2</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
+
+                       <div class="container">
+<div class="row">
+    <div class="col-md-6">
+      <div id="treeview-checkbox-demo">
+            <ul>
+                <li>HTML
+                <ul>
+                        <li data-value="table">HTML table</li>
+                        <li data-value="links">HTML links</li>
+                 </ul>
+                </li>
+                <li>PHP
+                    <ul>
+                        <li data-value="PHP if..else">PHP if..else</li>
+                        <li>PHP Loops
+                            <ul>
+                                <li data-value="For loop">For loop</li>
+                                <li data-value="While loop">While loop</li>
+                                <li data-value="Do WHile loop">Do WHile loop</li>
+                            </ul>
+                        </li>
+                        <li>PHP arrays</li>
+                    </ul>
+                </li>
+                <li>jQuery
+                    <ul>
+                        <li data-value="jQuery append">jQuery append</li>
+                        <li data-value="jQuery prepend">jQuery prepend</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-success" id="show-values">Get Values</button>
+
+   </div>
   </div>
-  <div class="checkbox">
-    <label><input type="checkbox" value=""><h8 style="color:#000;">Option 1</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 2</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-  </div>
-  <div class="checkbox">
-    <label><input type="checkbox" value=""><h8 style="color:#000;">Option 1</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 2</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div><div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-<div class="checkbox">
-  <label><input type="checkbox" value=""><h8 style="color:#000;">Option 3</h8></label>
-</div>
-						
-					
-					
-				</div>
-			</div>
+ </div>       
+
+                                    </div>
+
+    </div>
+    </div>
 	    </div>
 
 			

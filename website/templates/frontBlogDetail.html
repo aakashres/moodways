@@ -6,115 +6,190 @@
 
 
 {% block content %}
+
 <!-- Location -->
+
 <div class="footer-bottom" style="background-color:transparent; margin-top:40px;">
-<div class="wrap">
-    <div class="copy" style="margin-left:100px;">
-        <h1 style="font-size:13px"><a href="{% url 'website:home' %}" target="_blank">Home</a></h1>
-    </div>
-    <div class="copy">
-        <h1 style="font-size:13px;"><a href="{% url 'website:frontBlogList' %}" > >>Blog Grid</a></h1>
-    </div>
-    <div class="copy">
-        <h1 style="font-size:13px;"><a href="{% url 'website:frontBlogDetail' blog.id %}"> >>{{blog.title}}</a></h1>
-    </div>
-    <div class="clear"></div>
-</div>
-</div>
-
-<!-- Blog Section -->
-<div class="section">
-<div class="container">
-    <div class="row">
-        <!-- Left Sidebar -->
-        <div class="col-sm-4 blog-sidebar" style="width:23%; margin-left:80px;">
-            <!-- Search Form -->
-            <form method="get" action="{% url 'website:frontBlogList' %}">
-                <div class="input-group">
-                  <input type="Search" class="form-control" name="q" placeholder="Search" aria-describedby="basic-addon2">
-                  <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
-                </div>
-            </form>
-            <!-- Latest Blog sidebar -->
-            <div class="sidebar no-space">
-                <h1 style="margin-bottom:20px; margin-top:30px; border-bottom: 1px solid #BBB;">Latest blog</h1>
-                {% for latest_blog in latest_blogs%}
-                <div class="sidebar-posts" >
-                    <i class="fw-icon-bell-alt" style="background:url({{latest_blog.titlePic.url}}); background-size:cover; width:60px; height:60px;"></i>
-                    <h1>{{blog.created_at}}</h1>
-                    <p><a href="{% url 'website:frontBlogDetail' latest_blog.id %}" style="color:black;">{{latest_blog.title}}</a></p>
-                </div>
-                {% endfor %}
-            </div>
-
+      <div class="wrap">
+        <div class="copy2" style="margin-left:100px; ">
+           <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:home' %}" target="_blank">Home</a></h1>
         </div>
-        <!-- End Sidebar -->
-
-        <!-- Blog Post -->
-        <div class="col-sm-8" style="width:70%; align:right; margin-right:-40px;">
-            <div class="blog-post blog-single-post" >
-
-
-                <div class="single-post-content" style="margin-top:-10px;">
-                    <!-- genre -->
-                    <h3 style="color:black; font-size:10px; margin-bottom:7px;"> {{blog.subTitle}}</h3>
-                    <!-- Title -->
-                    <h3 style="color:black;">{{blog.title}}</h3>
-                    <!-- Author, Date -->
-                    <p>{{blog.author}}, {{blog.created_at|date}}</p>
-                    <!-- Image -->
-                    <div class="single-post-image" style="margin-top:20px;">
-                        <img src="{{blog.titlePic.url}}" alt="Post Title">
-                    </div>
-                    {{blog.body|safe}}
-                        <!-- Share -->
-                        <div class="footer-bottom" style="background-color:#DDD;">
-                            <div class="wrap">
-                                <div class="copy" style="margin-left:300px;">
-                                    <h1 style="font-size:13px; color:#666">Share <a href="#" target="_blank"></a></h1>
-                                </div>
-                                <div class="social">
-                                    <ul>
-                                        <li class="facebook"><a href="#"><span> </span></a></li>
-                                        <li class="linkedin"><a href="#"><span> </span></a></li>
-                                        <li class="twitter"><a href="#"><span> </span></a></li>
-                                    </ul>
-                                </div>
-                                <div class="clear"></div>
+        <div class="copy2">
+           <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:frontBlogList' %}" target="_blank"> >>Blog Grid</a></h1>
+        </div>
+            <div class="copy2">
+           <h1 style="font-size:13px;"><a style="color:#444;" href="{% url 'website:frontBlogDetail' blog.id %}" target="_blank"> >>Title of the blog</a></h1>
+        </div>
+        <div class="clear"></div>
+      </div>
+</div>
+<!-- Blog Section -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <!-- Left Sidebar -->
+                <div class="col-sm-4 blog-sidebar" style="width:23%; margin-left:80px;">
+                    <!-- Search Form -->
+                    <form method="get" action="{% url 'website:frontBlogList' %}">
+                        <div class="input-group">
+                            <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Search Blogs">
+                              <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                             </div>
                         </div>
+                    </form>
+                    <!-- Latest Blog sidebar -->
+                    <div class="sidebar no-space" style="margin-left:-15px; ">
+                        <h1 style="margin-bottom:20px; margin-top:30px; border-bottom: 1px solid #BBB;">Latest blog</h1>
+                    {% for blog in latest_blogs%}
+                        <div class="sidebar-posts" >
+                            <i class="fw-icon-bell-alt" style="background:url({{blog.titlePic.url}}); background-size:cover; width:60px; height:60px;"></i>
+                            <h1 style="font-size:10px;" > <a href="{% url 'website:frontBlogDetail' blog.id %}"></a>{{blog.title}}</h1>
+                            <p style="font-size:8px;">{{blog.author}}</p>
+                        </div>
+                        {% endfor %}
+
                     </div>
 
-                    <!-- Comment BLock -->
-                    <h3 style=" font-size:20px;">{{count}} Comment</h3>
-                    {% for comment in comments %}
-                    <div class="sidebar-posts"  style="border-bottom: 1px solid #BBB;" >
-                                <h1 style="margin-top:7px; color:black; ">{{comment.name}} </h1>
-                                <h1 style="margin-top:7px; color:#AAA">{{comment.created_at|timesince}} ago</h1>
-                                <p style="text-transform:lowercase; color:black; font-size:13px; ">{{comment.body}}</p>
+                    <!-- Categories Sidebar -->
+                    <h4>Categories</h4>
+                    <ul class="blog-categories">
+                        <li><a href="#">Lorem ipsum</a></li>
+                        <li><a href="#">Sed sit amet metus</a></li>
+                        <li><a href="#">Nunc et diam </a></li>
+                        <li><a href="#">Quisque</a></li>
+                    </ul>
+                    <!-- Archive Sidebar -->
+                    <h4>Archive</h4>
+                    <ul class="blog-categories">
+                        <li><a href="#">January 2013</a></li>
+                        <li><a href="#">February 2013</a></li>
+                        <li><a href="#">March 2013</a></li>
+                        <li><a href="#">April 2013</a></li>
+                        <li><a href="#">May 2013</a></li>
+                    </ul>
+                </div>
+                <!-- End Sidebar -->
+
+                <!-- Blog Post -->
+                <div class="col-sm-8" style="width:70%; align:right; margin-right:-40px;">
+                    <div class="blog-post blog-single-post" >
+
+
+                        <div class="single-post-content" style="margin-top:10px; ">
+                            <!-- Title -->
+                            <h3 style="color:black;" >{{blog.title}}</h3>
+                            <!-- Author, Date -->
+                            <p>{{blog.author}}, <i class="glyphicon glyphicon-calendar"></i> {{blog.created_at|date}}</p>
+                            <!-- Image -->
+                            <div class="single-post-image" style="margin-top:20px;">
+                                <img src="{{blog.titlePic.url}}" alt="Post Title">
+                            </div>
+                            <!-- Body -->
+                            {{blog.body|safe}}
+                                <!-- Share -->
+                                <div class="footer-bottom" style="background-color:#DDD; margin-top:10px;">
+                                    <div class="wrap">
+                                        <div class="copy2" style="margin-left:300px;">
+                                            <h1 style="font-size:13px; color:#666">Share <a href="#" target="_blank"></a></h1>
+                                        </div>
+                                        <div class="social">
+                                            <ul>
+                                                <li class="facebook"><a href="#"><span> </span></a></li>
+                                                <li class="linkedin"><a href="#"><span> </span></a></li>
+                                                <li class="twitter"><a href="#"><span> </span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Previos Next -->
+                                <div class="blog-top">
+
+                                    <!-- Previous -->
+
+                                    <div class="col-md-4">
+                                        <div class="sidebar-posts"  style="border-right: 1px solid #BBB; padding:20px 20px 20px 20px;" >
+                                            <h1 style="margin-top:7px;"><< Previous</h1>
+                                            <h1 style="margin-top:7px;color:#000;">Name of the post </h1>
+                                        </div>
+                                    </div>
+                                    <!-- Next -->
+                                    <div class="col-md-4 col-md-offset-4" >
+                                        <div class="sidebar-posts"  style="border-left: 1px solid #BBB; padding:20px 20px 20px 20px;" >
+
+                                            <h1 style="margin-top:7px; text-align:right;">Next >></h1>
+                                            <h1 style="margin-top:7px; text-align:right; color:#000;">Name of the post </h1>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <!-- Related Blog blocks -->
+                                <h3 style=" font-size:30px;">Related Blogs</h3>
+                                <!-- Related Blog blocks -->
+                                <div class="main">
+                                    <div class="wrap">
+                                        <div class="pages">
+                                            <!-- Row 1 -->
+                                            <div class="blog-top" style="margin-left:10px;">
+                                                {% for blog in latest_blogs %}
+                                                <!-- Block 1 -->
+                                                <div class="col-md-4" style="background-color:#ececec;padding:10px;border-radius:5px;">
+                                                    <a href="{% url 'website:frontBlogDetail' blog.id %}"><img src="{% static 'frontend/img/b1.jpg'%}" alt=""></a>
+                                                    <div class="blog-poast-admin2">
+                                                        <a>{{blog.created_at|date:"M d"}}</a>
+                                                    </div>
+                                                    <div class="blog-poast-info" style="background-color:transparent; font-size:10px; text-align:left; margin-left:40px;">
+                                                    </div>
+                                                    <h1 ><a href="{% url 'website:frontBlogDetail' blog.id %}" style="color:black;">{{blog.title}}</a></h1>
+                                                    {{blog.body|safe|truncatewords:20}}
+                                                    <div class="button"><a href="{% url 'website:frontBlogDetail' blog.id %}">Read More</a></div>
+                                                </div>
+                                                {% endfor%}
+                                                <div class="clear"></div>
+                                            </div>
+                                            <!-- Row 1 end -->
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
 
-                    {% endfor %}
-                    <!-- Add Comment Form -->
-                    <div class="main">
-                        <h3 style=" font-size:20px;">Share Your Experince</h3>
-                        <form method="post" action=".">
-                        {%csrf_token%}
-                            <div class="input" style="color:#4ecdc4;">{{form.email}}</div>
-                            <div class="input" style="color:#4ecdc4;">{{form.name}}</div>
-                            <div class="input" style="color:#4ecdc4;">{{form.body}}</div>
-                            <button type="submit" class="btn2 btn2-main btn-lg glyphicon ">Comment</button>
-                        </form>
+                            <!-- Comment BLock -->
+                            <h4 >{{count}} comments</h4>
+                            {% for comment in comments %}
+                            <div class="sidebar-posts"  style="border-bottom: 1px solid #BBB;" >
+                                <h1 style="margin-top:7px; color:black; ">{{comment.name}} </h1>
+                                <h1 style="margin-top:7px; color:#AAA">{{comment.created_at|date}} </h1>
+                                <p style="text-transform:lowercase; color:black; font-size:13px; ">{{comment.body}}</p>
+                                <h1 style="margin-top:7px;  text-align:right;"></h1>
+                            </div>
+                            {% endfor %}
+
+                            <!-- Add Comment Form -->
+                            <div class="main" style="margin-top:20px">
+                                <h3 style=" font-size:20px;">Add your comments</h3>
+                                <form method="post" action=".">
+                                {%csrf_token%}
+                                    <div class="input" style="color:#4ecdc4;">{{form.email}}</div>
+                                    <div class="input" style="color:#4ecdc4;">{{form.name}}</div>
+                                    <div class="input" style="color:#4ecdc4;">{{form.body}}</div>
+                                    <button class="btn btn-primary btn-lg glyphicon " type="submit">Comment</button>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
+                    <!-- End Blog Post -->
+
+
+
                 </div>
-
             </div>
-            <!-- End Blog Post -->
-
-
-
         </div>
-    </div>
-</div>
+
 
 {% endblock %}

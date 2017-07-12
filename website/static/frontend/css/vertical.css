@@ -32,8 +32,8 @@ height:20px;
 right:10px; left:auto;
 width:auto;
 }
-.carousel-indicators li{display:block; margin-bottom:5px; border:1px solid #00a199; }
-.carousel-indicators li.active{margin-bottom:5px; background:#00a199;}
+.carousel-indicators li{display:block; margin-bottom:5px; border:1px solid #0000; }
+.carousel-indicators li.active{margin-bottom:5px; background:#0000;}
 /*-------- Animation slider ------*/
 
 .animated{
