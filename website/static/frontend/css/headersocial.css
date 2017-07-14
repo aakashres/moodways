@@ -1,0 +1,114 @@
+.share-it{
+	position:fixed;
+	min-height:100px;
+	width:40px;
+
+	right:0;
+	z-index:3;
+	top:40%;
+}	
+.share-it i{
+	font-size:16px;
+}
+	
+a.multipage{background:#ee3046; border:2px #ee3046 solid; color:#fff;} 	
+a.multipage:hover{background:#fff; border:2px #fff solid; color:#333;} 	
+	
+	
+	.facebook{margin:0 auto; float:left; margin-right:2px;}
+.facebook  a{
+	color:#fff;
+	padding:10px 16px;
+         padding-bottom: 10px;
+	display:inline-block;
+	transition:0.3s ease;
+
+}
+.facebook  a:hover{
+	color:#fff;
+	padding:10px 20px;
+
+           transition:0.3s ease;
+	display:inline-block;
+}
+
+.twitter{margin:0 auto; float:left; margin-right:2px;}
+.twitter  a{
+	color:#fff;
+	padding:10px 16px;
+          transition:0.3s ease;
+	display:inline-block;
+	text-align:center;
+
+}
+.twitter  a:hover{
+	color:#fff;
+	padding:10px 20px;
+               transition:0.3s ease;
+	display:inline-block;
+	text-align:center;
+
+}
+
+.google{margin:0 auto; float:left; margin-right:2px;}
+.google  a{
+	color:#fff;
+	padding:10px 16px;
+          transition:0.3s ease;
+	display:inline-block;
+
+}
+.google  a:hover{
+	color:#fff;
+	padding:10px 20px;
+         transition:0.3s ease;
+	display:inline-block;
+	
+}
+
+.rss{margin:0 auto; float:left; margin-right:2px;}
+.rss a{
+	color:#fff;
+	padding:10px 16px;
+         transition:0.3s ease;
+	display:inline-block;
+
+}
+.rss a:hover{
+	color:#fff;
+	padding:10px 20px;
+        transition:0.3s ease;
+	display:inline-block;
+}
+
+.linkedin{margin:0 auto; float:left; margin-right:2px;}
+.linkedin a{
+	color:#fff;
+	padding:10px 16px;
+
+	display:inline-block;
+
+}
+.linkedin a:hover{
+	color:#fff;
+	padding:10px 20px;
+
+	display:inline-block;
+	transition:0.3s ease;
+}
+
+.youtube{margin:0 auto; float:left; margin-right:2px;}
+.youtube a{
+	color:#fff;
+	padding:10px 16px;
+        transition:0.3s ease;
+	display:inline-block;
+
+}
+.youtube a:hover{
+	color:#fff;
+	padding:10px 20px;
+
+	display:inline-block;
+	transition:0.3s ease;
+}
