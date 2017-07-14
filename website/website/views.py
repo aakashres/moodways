@@ -726,6 +726,13 @@ class FrontPackageListView(HomeMixin, ListView):
             ).distinct()
         return packages
 
+    def get_context_data(self, **kwargs):
+        context = super(FrontPackageListView,
+                        self).get_context_data(**kwargs)
+        context['promotional_packages'] = Package.objects.filter(
+            deleted_at=None, is_promotional=True)[:3]
+        return context
+
 
 class FrontPackageDetailView(DetailView):
     model = Package
@@ -740,6 +747,7 @@ class FrontPackageDetailView(DetailView):
         context = super(FrontPackageDetailView,
                         self).get_context_data(**kwargs)
         context['package'] = self.package
+        context['recent'] = Package.objects.all().order_by('created_at')[:6]
         context['itenaryList'] = Itenary.objects.filter(package=self.package)
         gallery = Gallery.objects.filter(package=self.package)
         context['photos'] = Photo.objects.filter(gallery=gallery)

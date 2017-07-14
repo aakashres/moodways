@@ -10,90 +10,91 @@
 <!-- Location -->
 
 <div class="footer-bottom" style="background-color:transparent; margin-top:40px;">
-<div class="row">
-<div class="col-md-6">
-      <div class="wrap">
-        <div class="copy2" style="margin-left:100px; ">
-           <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:home' %}" target="_blank">Home</a></h1>
-        </div>
-        <div class="copy2">
-           <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:frontBlogList' %}" target="_blank"> >>Blog Grid</a></h1>
-        </div>
+    <div class="row">
+        <div class="col-md-6">
+          <div class="wrap">
+            <div class="copy2" style="margin-left:100px; ">
+             <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:home' %}" target="_blank">Home</a></h1>
+         </div>
+         <div class="copy2">
+             <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:frontBlogList' %}" target="_blank"> >>Blog Grid</a></h1>
+         </div>
 
-        <div class="clear"></div>
-      </div>
-      </div>
-      <div class="col-md-6">
-      <div class="footer-bottom" style="background-color:transparent;margin-bottom:-40px; margin-top:-40px; padding:0px 170px;">
-        <form method="get" action=".">
+         <div class="clear"></div>
+     </div>
+ </div>
+ <div class="col-md-6">
+  <div class="footer-bottom" style="background-color:transparent;margin-bottom:-40px; margin-top:-40px; padding:0px 170px;">
+    <form method="get" action=".">
+        <div class="input-group">
             <div class="input-group">
-                <div class="input-group">
-                  <input type="Search" class="form-control" name="q" placeholder="Search" aria-describedby="basic-addon2">
-                  <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
-                </div>
-            </div>
-        </form>
-    </div>
+              <input type="Search" class="form-control" name="q" placeholder="Search" aria-describedby="basic-addon2">
+              <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
+          </div>
       </div>
-      </div>
+  </form>
+</div>
+</div>
+</div>
 </div>
 <!-- Search Form -->
 
 
 <!-- Blog blocks -->
-<div class="main" style="margin-left:100px;">
- <div class="wrap">
-   <div class="pages">
-    <!-- Row 1 -->
-    <div class="blog-top">
-    {% if not blogs %}
-    <div style="margin-left:40px;">
-    <h1>No Blogs Found</h1>
-    </div>
-    {% endif %}
-    {% for blog in blogs%}
-        <!-- Block 1 -->
-        <div class="col_1_of_b span_1_of_b" style="background-color:#ececec;padding:10px;border-radius:5px;">
-            <a><img src="{{blog.titlePic.url}}" alt=""></a>
-            <div class="blog-poast-admin">
-                <a>{{blog.created_at|date:"d M"}}</a>
-            </div>
-            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                <ul>
-                    <li><i class="admin"> </i><a class="admin" ><span> </span> Written By: {{blog.author}}</a></li>
-                </ul>
-            </div>
-            <h3><a href="{% url 'website:frontBlogDetail' blog.id %}">{{blog.title}}</a></h3>
-            {{blog.body|safe|truncatewords:20}}
-            <div class="button"><a href="{% url 'website:frontBlogDetail' blog.id %}">Read More</a></div>
-        </div>
-        {% endfor %}
+<div class="main" style=" margin-left:70px;">
+    <div class="wrap">
+        <div class="pages">
+            <!-- Row 1 -->
+            <div class="blog-top">
+                {% if not blogs %}
+                <div style="margin-left:40px;">
+                    <h1>No Blogs Found</h1>
+                </div>
+                {% endif %}
+                {% for blog in blogs%}
 
-        <div class="clear"></div>
+                <!-- Block 1 -->
+                <div class="col_1_of_b span_1_of_b button" style="margin-left:40px;  background-color:#ececec;padding:10px;border-radius:5px;">
+                    <a><img src="{{blog.titlePic.url}}" alt=""></a>
+                    <div class="blog-poast-admin">
+                        <a href="{% url 'website:frontBlogDetail' blog.id %}" style="color:#FFF;">{{blog.created_at|date:"d"}}<br>{{blog.created_at|date:"M"}}</a>
+                    </div>
+                    <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
+                        <ul>
+                            <li><i class="admin"> </i><a class="admin" ><span> </span></a></li>
+                        </ul>
+                    </div>
+                    <h3><a href="{% url 'website:frontBlogDetail' blog.id %}">{{blog.title}}</a></h3>
+                    {{blog.body|safe|truncatewords:15}}
+                    <div class="button st-center" style="text-align:center; padding-top:-5px; background-color:#777777 ; margin-top:0px; "><a href="{% url 'website:frontBlogDetail' blog.id %}" style="color:white">+Read more</a></div>
+                </div>
+                {% endfor %}
+
+                <div class="clear"></div>
+            </div>
+            <!-- Row 3 end -->
+        </div>
     </div>
-    <!-- Row 3 end -->
-</div>
-</div>
 </div>
 
 <ul class="pagination" style="margin-left:170px;">
-     {% if page_obj.has_previous %}
-    <li><a href="/blog/list?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
-    </li>
-    {% else %}
-    <li><a href="#"><i class="fa fa-angle-left"></i></a>
-    </li>
-    {% endif %}
-    {% for pagenum in page_obj.paginator.page_range %}
-    <li><a href="/blog/list?page={{ pagenum }}" {% ifequal pagenum page_obj.number%}class="active"{% endifequal %}>{{ pagenum }} </a>
-    </li>
-    {% endfor%}
-    {% if page_obj.has_next %}
-    <li><a href="/blog/list?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a>
-    </li>
-    {% else %}
-    <li><a href="#"><i class="fa fa-angle-right"></i></a>
-    </li>
-    {% endif %}
-  </ul>
+   {% if page_obj.has_previous %}
+   <li><a href="/blog/list?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left">Previous</i>Previous</a>
+   </li>
+   {% else %}
+   <li><a href="#"><i class="fa fa-angle-left"></i>Previous</a>
+   </li>
+   {% endif %}
+   {% for pagenum in page_obj.paginator.page_range %}
+   <li><a href="/blog/list?page={{ pagenum }}" {% ifequal pagenum page_obj.number%}class="active"{% endifequal %}>{{ pagenum }} </a>
+   </li>
+   {% endfor%}
+   {% if page_obj.has_next %}
+   <li><a href="/blog/list?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i>Next</a>
+   </li>
+   {% else %}
+   <li><a href="#"><i class="fa fa-angle-right">Next</i></a>
+   </li>
+   {% endif %}
+</ul>
 {% endblock %}

@@ -18,7 +18,7 @@
            <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:frontBlogList' %}" target="_blank"> >>Blog Grid</a></h1>
         </div>
             <div class="copy2">
-           <h1 style="font-size:13px;"><a style="color:#444;" href="{% url 'website:frontBlogDetail' blog.id %}" target="_blank"> >>Title of the blog</a></h1>
+           <h1 style="font-size:13px;"><a style="color:#444;" href="{% url 'website:frontBlogDetail' blog.id %}" target="_blank"> >>{{blog.title}}</a></h1>
         </div>
         <div class="clear"></div>
       </div>
@@ -77,10 +77,16 @@
 
 
                         <div class="single-post-content" style="margin-top:10px; ">
-                            <!-- Title -->
-                            <h3 style="color:black;" >{{blog.title}}</h3>
+                        <!-- Title -->
+                            <h3 style="color:black; letter-spacing:0px; font-weight:bold; font-size:22;">{{blog.title}}</h3>
                             <!-- Author, Date -->
-                            <p>{{blog.author}}, <i class="glyphicon glyphicon-calendar"></i> {{blog.created_at|date}}</p>
+                            <p style="color:black; letter-spacing:0px; font-weight:bold; font-size:15; margin-top:15px;"><i class="glyphicon glyphicon-calendar"></i> {{blog.created_at|date}}</p>
+                            <div class="sidebar-posts" style="margin-top:-10px;">
+                                <i class="fw-icon-bell-alt" style="background:url({{blog.authorPic.url}}); background-size:cover; border-radius:15px; width:30px; height:30px;"></i>
+                                <h1 style="font-size:11px; margin-top:3px;" > <a href="#"></a>{{blog.author}}</h1>
+
+                            </div>
+
                             <!-- Image -->
                             <div class="single-post-image" style="margin-top:20px;">
                                 <img src="{{blog.titlePic.url}}" alt="Post Title">
@@ -134,17 +140,19 @@
                                             <!-- Row 1 -->
                                             <div class="blog-top" style="margin-left:10px;">
                                                 {% for blog in latest_blogs %}
-                                                <!-- Block 1 -->
-                                                <div class="col-md-4" style="background-color:#ececec;padding:10px;border-radius:5px;">
+                                                <div class="col_1_of_b2 span_1_of_b2 button" style="background-color:#ececec;padding:10px;border-radius:5px;">
                                                     <a href="{% url 'website:frontBlogDetail' blog.id %}"><img src="{% static 'frontend/img/b1.jpg'%}" alt=""></a>
                                                     <div class="blog-poast-admin2">
-                                                        <a>{{blog.created_at|date:"M d"}}</a>
+                                                        <a href="{% url 'website:frontBlogDetail' blog.id %}" style="color:#FFF;">{{blog.created_at|date:"d"}}<br>{{blog.created_at|date:"M"}}</a>
                                                     </div>
                                                     <div class="blog-poast-info" style="background-color:transparent; font-size:10px; text-align:left; margin-left:40px;">
+                                                        <ul>
+                                                            <li><i class="admin"> </i><a class="admin"><span> </span></a></li>
+                                                        </ul>
                                                     </div>
-                                                    <h1 ><a href="{% url 'website:frontBlogDetail' blog.id %}" style="color:black;">{{blog.title}}</a></h1>
-                                                    {{blog.body|safe|truncatewords:20}}
-                                                    <div class="button"><a href="{% url 'website:frontBlogDetail' blog.id %}">Read More</a></div>
+                                                    <h3 style="font-size:15px;"><a href="{% url 'website:frontBlogDetail' blog.id %}">{{blog.title}}</a></h3>
+                                                    <p style="font-size:13px;">{{blog.body|safe|truncatewords:20}}</p>
+                                                    <div class="button st-center" style="text-align:center; padding-top:-5px; background-color:#777777 ; margin-top:0px; "><a href="{% url 'website:frontBlogDetail' blog.id %}" style="color:white">See Blog Details</a></div>
                                                 </div>
                                                 {% endfor%}
                                                 <div class="clear"></div>
@@ -177,7 +185,8 @@
                                     <div class="input" style="color:#4ecdc4;">{{form.email}}</div>
                                     <div class="input" style="color:#4ecdc4;">{{form.name}}</div>
                                     <div class="input" style="color:#4ecdc4;">{{form.body}}</div>
-                                    <button class="btn btn-primary btn-lg glyphicon " type="submit">Comment</button>
+
+                                    <button class="btn btn-main btn-lg glyphicon " type="submit">Comment</button>
                                 </form>
                             </div>
                         </div>

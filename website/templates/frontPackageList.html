@@ -1,5 +1,6 @@
 {% extends 'layouts/frontend/base.html' %}
 {% load staticfiles %}
+{% load mod %}
 {%block title %}
 {{block.super}} | Blog List
 {% endblock %}
@@ -8,123 +9,202 @@
 {% block content %}
 
 <div class="footer-bottom" style="background-color:transparent; margin-top:40px;">
-<div class="row">
-<div class="col-md-6">
-      <div class="wrap">
-        <div class="copy2" style="margin-left:100px; ">
-           <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:home' %}" target="_blank">Home</a></h1>
-        </div>
-        <div class="copy2">
-           <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:frontPackageList' %}" target="_blank"> >>Package Grid</a></h1>
-        </div>
+  <div class="wrap">
+    <div class="copy2" style="margin-left:100px; ">
+     <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:home' %}" target="_blank">Home</a></h1>
+   </div>
+   <div class="copy2">
+     <h1 style="font-size:13px; "><a style="color:#444;" href="{% url 'website:frontPackageList' %}" target="_blank"> >>Package Grid</a></h1>
+   </div>
 
-        <div class="clear"></div>
-      </div>
-      </div>
-      <div class="col-md-6">
-      <div class="footer-bottom" style="background-color:transparent;margin-bottom:-40px; margin-top:-40px; padding:0px 170px;">
-        <form method="get" action=".">
-            <div class="input-group">
-                <div class="input-group">
-                  <input type="Search" class="form-control" name="q" placeholder="Search" aria-describedby="basic-addon2">
-                  <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
-                </div>
-            </div>
-        </form>
-    </div>
-      </div>
-      </div>
+   <div class="clear"></div>
+ </div>
 </div>
-<div class="section">
+<!-- Blog Section -->
+  <div class="section">
     <div class="container">
-        <div class="row">
-            <!-- Left Sidebar -->
-            <div class="col-md-8" style="margin-left:40px; margin-right:-40px;">
-                <div >
-                    <!-- packages -->
-                    <div class="main">
-                        <div class="wrap">
-                            <div class="pages">
-                            <!-- Row 1 -->
-                                <div class="blog-top">
-                                <!-- Block 1 -->
-                                    {% if not packages %}
-                                        <div style="margin-left:10px;">
-                                            <h1>No Package Found</h1>
-                                        </div>
-                                    {% endif %}
-                                    {% for package in packages %}
-                                    <!-- Block 1 -->
-                                    <div class="col_1_of_b2 span_1_of_b2" style="background-color:#ececec;padding:10px;border-radius:5px;">
-                                        <a href="{% url 'website:frontPackageDetail' package.slug %}"><img src="{{package.titlePic.url}}" alt=""></a>
-                                        <div class="blog-poast-admin2">
-                                            <a>{{package.created_at|date:"M d"}}</a>
-                                        </div>
-                                        <div class="blog-poast-info" style="background-color:transparent; font-size:15px; text-align:left; ">
-                                            <ul>
-                                            <li><i class="admin"> </i><a class="admin"><span> </span>Rs.{{package.price}}, {{package.discount}}%</a></li>
-                                            </ul>
-                                        </div>
-                                        <h3 style="font-size:15px;"><a href="{% url 'website:frontPackageDetail' package.slug %}">{{package.title}}</a></h3>
-                                        <div class="button"><a href="{% url 'website:frontPackageDetail' package.slug %}">See package details</a></div>
-                                    </div>
-                                    {% endfor %}
-                                    <div class="clear"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <!-- right sidebar -->
+      <div class="row">
+        <!-- Left Sidebar -->
 
-            <div class="col-md-3 blog-sidebar" style="margin-left:80px;">
-                <!-- Search Form -->
-                <form method="get" action="{% url 'website:frontPackageList' %}">
-                    <div class="input-group">
-                        <input type="Search" class="form-control" name="q" placeholder="Search" aria-describedby="basic-addon2">
-                        <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
+
+        <div class="col-sm-8" style="width:70%; margin-left:40px; margin-right:-40px;">
+          <div class="blog-post blog-single-post" >
+
+
+            <!-- packages -->
+            <div class="main">
+              <div class="wrap">
+                <div class="pages">
+                  <!-- Row 1 -->
+
+
+                  <div class="blog-top">
+
+                    <!-- Block 1 -->
+                    <div class="grid">
+
+                    {% if not packages %}
+                  <div style="margin-left:10px;">
+                    <h1>No Package Found</h1>
+                  </div>
+                  {% endif %}
+                  {% for package in packages %}
+                      <figure class="portfolio-item" style="margin:10px; margin-left:-{{forloop.counter|mod}}px;">
+                        <img src="{{package.titlePic.url}}" alt=""/><b style="color:white; size:12px;">Price: Rs {{package.price}}</b>
+                        <figcaption style="text-align:center;">
+
+                          <p>{{package.title}}</p>
+
+
+                          <a href="{% url 'website:frontPackageDetail' package.slug %}" class=" c2a btn btn-main " style="margin-left:-80px; margin-bottom:20px; weidth:75%;">Read More</a>
+
+                        </figcaption>
+                      </figure>
+                      {% endfor %}
+                      </div>
+
+
+                      <div class="clear"></div>
                     </div>
-                </form>
-                <div class="footer-bottom" style="background-color:#4ecdc4; margin-right:-10px; margin-bottom:20px; margin-top:20px;">
-                    <div class="wrap">
-                        <div class="copy">
-                            <h1 style="font-size:13px;"><a style="color:#666;" target="_blank">Didn't find the package of your choice? Email us at</a></h1>
-                            </div>
-                            <div class="copy">
-                            <h1 style="font-size:13px;"><a style="color:#FFF;" href="mailto:info@moodwaystravels.com" target="_blank">info@moodwaystravels.com</a></h1>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
+                    <!-- Row 3 end -->
+                  </div>
+
                 </div>
+              </div>
+              <!-- Recommended -->
+              <h3 style=" font-size:30px;">Recommended packages</h3>
+              <div class="main">
+                <div class="wrap">
+                  <div class="pages">
+                    <!-- Row 1 -->
+                    <div class="blog-top" style="margin-left:10px;">
+
+                      <!-- Block 1 -->
+                      <div class="grid">
+                        {% for package in promotional_packages %}
+                      <figure class="portfolio-item" style="margin:10px; margin-left:-{{forloop.counter|mod}}px;">
+                        <img src="{{package.titlePic.url}}" alt=""/><b style="color:white; size:12px;">Discount: {{package.discount}} %</b>
+                        <figcaption style="text-align:center;">
+
+                          <p>{{package.title}}</p>
+
+
+                          <a href="{% url 'website:frontPackageDetail' package.slug %}" class=" c2a btn btn-main " style="margin-left:-80px; margin-bottom:20px; weidth:75%;">Read More</a>
+
+                        </figcaption>
+                      </figure>
+                      {% endfor %}
+                      </div>
+
+                      <div class="clear"></div>
+                    </div>
+                    <!-- Row 1 end -->
+
+
+                  </div>
+
+                </div>
+              </div>
             </div>
+
+
+
+          </div>
+          <!-- right sidebar -->
+
+          <div class="col-sm-4 blog-sidebar" style="width:23%; margin-left:80px;">
+            <!-- Search Form -->
+            <form method="get" action=".">
+              <div class="input-group">
+                  <div class="input-group">
+                    <input type="search" name="q" class="form-control" placeholder="Search Packages">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                  </div>
+              </div>
+            </form>
+            <div class="footer-bottom" style="background-color:#4ecdc4; margin-right:-10px; margin-bottom:20px; margin-top:20px;">
+              <div class="wrap">
+                <div class="copy">
+                  <h1 style="font-size:13px; text-align:center;"><a style="color:#666;" target="_blank">Didn't find the package of your choice?<br><br> Inquire us at</a></h1>
+                </div>
+                <div class="copy">
+                  <h1 style="font-size:15px;"><a style="color:#FFF;" href="/" target="_blank">info@moodwaystravels.com</a></h1>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+
+            <h4>Filters</h4>
+
+
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div id="treeview-checkbox-demo">
+                    <ul>
+                      <li>HTML
+                        <ul>
+                          <li data-value="table">HTML table</li>
+                          <li data-value="links">HTML links</li>
+                        </ul>
+                      </li>
+                      <li>PHP
+                        <ul>
+                          <li data-value="PHP if..else">PHP if..else</li>
+                          <li>PHP Loops
+                            <ul>
+                              <li data-value="For loop">For loop</li>
+                              <li data-value="While loop">While loop</li>
+                              <li data-value="Do WHile loop">Do WHile loop</li>
+                            </ul>
+                          </li>
+                          <li>PHP arrays</li>
+                        </ul>
+                      </li>
+                      <li>jQuery
+                        <ul>
+                          <li data-value="jQuery append">jQuery append</li>
+                          <li data-value="jQuery prepend">jQuery prepend</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                  <button type="button" class="btn btn-main" id="show-values">Get Values</button>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
+      </div>
     </div>
+<div class="section">
+
+
+<ul class="pagination" style="margin-left:170px;">
+ {% if page_obj.has_previous %}
+ <li><a href="/package/list?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i>Previous</a>
+ </li>
+ {% else %}
+ <li><a href="#"><i class="fa fa-angle-left"></i>Previous</a>
+ </li>
+ {% endif %}
+ {% for pagenum in page_obj.paginator.page_range %}
+ <li><a href="/package/list?page={{ pagenum }}" {% ifequal pagenum page_obj.number%}class="active"{% endifequal %}>{{ pagenum }} </a>
+ </li>
+ {% endfor%}
+ {% if page_obj.has_next %}
+ <li><a href="/package/list?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i>Next</a>
+ </li>
+ {% else %}
+ <li><a href="#"><i class="fa fa-angle-right"></i>Next</a>
+ </li>
+ {% endif %}
+</ul>
+<div class="clear"></div>
 </div>
-
-
-    <ul class="pagination" style="margin-left:170px;">
-     {% if page_obj.has_previous %}
-     <li><a href="/package/list?page={{ page_obj.previous_page_number }}"><i class="fa fa-angle-left"></i></a>
-     </li>
-     {% else %}
-     <li><a href="#"><i class="fa fa-angle-left"></i></a>
-     </li>
-     {% endif %}
-     {% for pagenum in page_obj.paginator.page_range %}
-     <li><a href="/package/list?page={{ pagenum }}" {% ifequal pagenum page_obj.number%}class="active"{% endifequal %}>{{ pagenum }} </a>
-     </li>
-     {% endfor%}
-     {% if page_obj.has_next %}
-     <li><a href="/package/list?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a>
-     </li>
-     {% else %}
-     <li><a href="#"><i class="fa fa-angle-right"></i></a>
-     </li>
-     {% endif %}
-   </ul>
-    <div class="clear"></div>
-  </div>
 </div>
 
 {% endblock %}

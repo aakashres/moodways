@@ -48,7 +48,7 @@ a:hover,a:focus {
 	border-bottom:1px solid rgba(255,255,255,.3);
 	text-transform:uppercase;
 	font-family:"HELVETICA";
-	background-color:#000;
+	background-color:#CCC;
 }
 .navbar-custom .navbar-brand {
 	font-size:20px;
@@ -75,7 +75,7 @@ a:hover,a:focus {
 }
 .navbar-custom .nav li a:hover {
 	outline:0;
-	color:#1ba39c;
+	color:#CCC;
 	background-color:transparent;
 }
 .navbar-custom .nav li a:focus,.navbar-custom .nav li a:active {
@@ -86,10 +86,10 @@ a:hover,a:focus {
 	outline:0;
 }
 .navbar-custom .nav li.active a {
-	color:#1ba39c;
+	color:#f66;
 }
 .navbar-custom .nav li.active a:hover {
-	color:#1ba39c;
+	color:#CCC;
 }
 @media(min-width:768px) {
 	.navbar-custom {

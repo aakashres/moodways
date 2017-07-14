@@ -25,350 +25,171 @@
 
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" style="background-color:white;">
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+      <div class="container">
+       <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+          <i class="fa fa-bars"></i>
+      </button>
+      <a class="navbar-brand" href="#">Moodways Travels</a>
+  </div>
 
-<!-- Navigation -->
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            <a class="navbar-brand page-scroll" href="hostindex.html">MOODWAYS </a>
-        </div>
-        <!-- Collect content for toggling -->
-        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-            <ul class="nav navbar-nav">
-            {% for child in menu_root.not_deleted_children %}
-                {% if request.path|cut:"/" == child.url|cut:"/" %}
-                    {% if child.not_deleted_children %}
-                    <li class="passive dropdown">
-                    {% else %}
-                    <li class="passive">
-                    {%endif%}
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+    <ul class="nav navbar-nav navbar-right">
+     {% for child in menu_root.not_deleted_children %}
+     {% if request.path|cut:"/" == child.url|cut:"/" %}
+     {% if child.not_deleted_children %}
+     <li class="passive dropdown">
+        {% else %}
+        <li class="passive">
+            {%endif%}
+            {% else %}
+            {% if child.not_deleted_children %}
+            <li class="dropdown">
                 {% else %}
-                    {% if child.not_deleted_children %}
-                    <li class="dropdown">
-                    {% else %}
-                    <li>
+                <li>
                     {%endif%}
-                {% endif %}
-                {% if child.not_deleted_children %}
-                        <a href="{{ child.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ child.title }}<b class="caret"> </b></a>
-                        <ul class="dropdown-menu" style="background-color:white;">
+                    {% endif %}
+                    {% if child.not_deleted_children %}
+                    <a href="{{ child.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ child.title }}<b class="caret"> </b></a>
+                    <ul class="dropdown-menu" style="background-color:white;">
                         {% for sub_child in child.not_deleted_children %}
-                            <li>
-                                <a href="{{ sub_child.url }}">{{ sub_child.title }}</a>
-                            </li>
+                        <li>
+                            <a href="{{ sub_child.url }}">{{ sub_child.title }}</a>
+                        </li>
                         {% endfor %}
-                        </ul>
-                {% else %}
-                        <a href="{{ child.url }}">{{ child.title }}</a>
-                {% endif %}
-                    </li>
-            {% endfor %}
+                    </ul>
+                    {% else %}
+                    <a href="{{ child.url }}">{{ child.title }}</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container -->
-    </nav>
+</nav>
 
 
-    <!-- Intro Header -->
-    <header class="intro" style="background-image:url('{% static "frontend/img/back.jpg" %}'); height:300px;">
-        <div class="intro-body">
-            <div class="container">
-                <div class="row">
-                    <div class="brand-heading">
-                        <h1 style="color:#FFF;">Experience Nepal</h1>
-                        <h1 style="font-size:12px; padding:40px 0; color:#FFF;">
+
+<!-- Intro Header -->
+<header class="intro" style="background-image:url('{% static "frontend/img/back.jpg" %}'); height:300px;">
+    <div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="brand-heading">
+                    <h1 style="color:#FFF;">Experience Nepal</h1>
+                    <h1 style="font-size:12px; color:#FFF; margin-top:20px;">
                             Travel with moodways
-                        </h1>
-                    </div>
+                    </h1>
                 </div>
             </div>
         </div>
-    </header>
-    {% block content%}
+    </div>
+</header>
 
-    <!-- Location -->
-        <div class="footer-bottom" style="background-color:transparent; margin-bottom:-40px; margin-top:40px;">
-              <div class="wrap">
-                <div class="copy" style="margin-left:100px;">
-                   <h1 style="font-size:13px; color:#666"><a href="hostindex.html" target="_blank">Home</a></h1>
-                </div>
-                <div class="copy">
-                   <h1 style="font-size:13px; color:#666"><a href="blog.html" target="_blank"> >>Blog Grid</a></h1>
-                </div>
-                <div class="clear"></div>
-              </div>
-       </div>
+<div class="row">
+    <div class="share-it">
+        <div class="facebook" style="background-image: url({% static 'frontend/img/fb1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-facebook" ></i></a>
+   </div>
+   <div class="twitter" style="background-image: url({% static 'frontend/img/tw1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-twitter"></i></a>
+   </div>
+   <div class="google hidden-xs" style="background-image: url({% static 'frontend/img/pin1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-google-plus"></i></a>
+   </div>
+   <div class="rss" style="background-image: url({% static 'frontend/img/rss1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-rss"></i></a>
+   </div>
+   <div class="linkedin" style="background-image: url({% static 'frontend/img/li1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-linkedin"></i></a>
+   </div>
+   <div class="youtube cboxElement" style="background-image: url({% static 'frontend/img/vm1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-youtube"></i></a>
+   </div>
+ </div>
+</div>
 
-    <!-- Blog blocks -->
-    <div class="main" style="margin-left:100px;">
-             <div class="wrap">
-               <div class="pages">
-               <!-- Row 1 -->
-                 <div class="blog-top">
+{% block content%}
 
-                 <!-- Block 1 -->
-                      <div class="col_1_of_b span_1_of_b">
-                            <a><img src="{% static 'frontend/img/b1.jpg' %}" alt=""></a>
-                            <div class="blog-poast-admin">
-                                <a>05<br>Mar</a>
-                            </div>
-                            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                                <ul>
-                                    <li><i class="admin"> </i><a class="admin" ><span> </span> Put your Genre Here </a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="#">Lorem Ipsum is simply</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <div class="button"><a href="blog-post.html">+Read More</a></div>
-                        </div>
+{% endblock %}
 
-                <!-- Block 2 -->
-                      <div class="col_1_of_b span_1_of_b">
-                            <a><img src="{% static 'frontend/img/b2.jpg' %}" alt=""></a>
-                            <div class="blog-poast-admin">
-                                <a>05<br>Mar</a>
-                            </div>
-                            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                                <ul>
-                                    <li><i class="admin"> </i><a class="admin" ><span> </span> Put your Genre Here </a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="#">Lorem Ipsum is simply</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <div class="button"><a href="blog-post.html">+Read More</a></div>
-                        </div>
-
-                    <!-- Block 3 -->
-                      <div class="col_1_of_b span_1_of_b">
-                            <a><img src="{% static 'frontend/img/b3.jpg' %}" alt=""></a>
-                            <div class="blog-poast-admin">
-                                <a>05<br>Mar</a>
-                            </div>
-                            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                                <ul>
-                                    <li><i class="admin"> </i><a class="admin" ><span> </span> Put your Genre Here </a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="#">Lorem Ipsum is simply</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <div class="button"><a href="blog-post.html">+Read More</a></div>
-                        </div>
-
-                <div class="clear"></div>
-                </div>
-                <!-- Row 1 end -->
-
-                <!-- Row 2 -->
-                <div class="blog-top">
-
-                         <!-- Block 1 -->
-                      <div class="col_1_of_b span_1_of_b">
-                            <a><img src="{% static 'frontend/img/b4.jpg' %}" alt=""></a>
-                            <div class="blog-poast-admin">
-                                <a>05<br>Mar</a>
-                            </div>
-                            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                                <ul>
-                                    <li><i class="admin"> </i><a class="admin" ><span> </span> Put your Genre Here </a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="#">Lorem Ipsum is simply</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <div class="button"><a href="blog-post.html">+Read More</a></div>
-                        </div>
-
-                    <!-- Block 2 -->
-                      <div class="col_1_of_b span_1_of_b">
-                            <a><img src="{% static 'frontend/img/b5.jpg' %}" alt=""></a>
-                            <div class="blog-poast-admin">
-                                <a>05<br>Mar</a>
-                            </div>
-                            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                                <ul>
-                                    <li><i class="admin"> </i><a class="admin" ><span> </span> Put your Genre Here </a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="#">Lorem Ipsum is simply</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <div class="button"><a href="blog-post.html">+Read More</a></div>
-                        </div>
-
-                    <!-- Block 3 -->
-                     <div class="col_1_of_b span_1_of_b">
-                            <a><img src="{% static 'frontend/img/b6.jpg' %}" alt=""></a>
-                            <div class="blog-poast-admin">
-                                <a>05<br>Mar</a>
-                            </div>
-                            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                                <ul>
-                                    <li><i class="admin"> </i><a class="admin" ><span> </span> Put your Genre Here </a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="#">Lorem Ipsum is simply</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <div class="button"><a href="blog-post.html">+Read More</a></div>
-                        </div>
-
-                    <div class="clear"></div>
-                </div>
-                <!-- Row 2 end -->
-
-                <!-- Row 3 -->
-                <div class="blog-top">
-
-                         <!-- Block 1 -->
-                      <div class="col_1_of_b span_1_of_b">
-                            <a><img src="{% static 'frontend/img/b7.jpg' %}" alt=""></a>
-                            <div class="blog-poast-admin">
-                                <a>05<br>Mar</a>
-                            </div>
-                            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                                <ul>
-                                    <li><i class="admin"> </i><a class="admin" ><span> </span> Put your Genre Here </a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="#">Lorem Ipsum is simply</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <div class="button"><a href="blog-post.html">+Read More</a></div>
-                        </div>
-
-                    <!-- Block 2 -->
-                     <div class="col_1_of_b span_1_of_b">
-                            <a><img src="{% static 'frontend/img/b1.jpg' %}" alt=""></a>
-                            <div class="blog-poast-admin">
-                                <a>05<br>Mar</a>
-                            </div>
-                            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                                <ul>
-                                    <li><i class="admin"> </i><a class="admin" ><span> </span> Put your Genre Here </a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="#">Lorem Ipsum is simply</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <div class="button"><a href="blog-post.html">+Read More</a></div>
-                        </div>
-
-                    <!-- Block 3 -->
-                      <div class="col_1_of_b span_1_of_b">
-                            <a><img src="{% static 'frontend/img/b3.jpg' %}" alt=""></a>
-                            <div class="blog-poast-admin">
-                                <a>05<br>Mar</a>
-                            </div>
-                            <div class="blog-poast-info" style="background-color:transparent;  text-align:left; margin-left:50px;">
-                                <ul>
-                                    <li><i class="admin"> </i><a class="admin" ><span> </span> Put your Genre Here </a></li>
-                                </ul>
-                            </div>
-                            <h3><a href="#">Lorem Ipsum is simply</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <div class="button"><a href="blog-post.html">+Read More</a></div>
-                        </div>
-
-                    <div class="clear"></div>
-                  </div>
-                  <!-- Row 3 end -->
-                 </div>
-              </div>
-            </div>
-
-            <!-- Social -->
-                <div class="footer-bottom" style="background-color:#FFF; margin-left:100px;">
-              <div class="wrap">
-                <div class="social2">
-                   <ul>
-                      <li class="facebook2"><a href="#"><span> </span></a></li>
-                      <li class="linkedin2"><a href="#"><span></span></a></li>
-                      <li class="twitter2"><a href="#"><span> </span></a></li>
-                   </ul>
+<section id="contact" >
+  <div class="container" data-stellar-background-ratio="0.4" class="img img-responsive" style=" background:url({% static 'frontend/img/fback.jpg'%}); background-size:cover; background-position:fixed;">
+    <div class="row" style="margin-top:20px; margin-bottom:20px; ">
+      <div class="col-md-3">
+        <a href="#" class="fa fa-map-marker" style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Quick Links</h4> </a>
+        <ul>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Home</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Destination</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Essential Info</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Ght Blog</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Earthquake 2015</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> FAQs</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Contact Us</a> </li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <a href="#" class="fa fa-map-marker" style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Watch</h4> </a>
+        <ul>
 
 
-                </div>
-                <div class="clear"></div>
-              </div>
-       </div>
-    {% endblock %}
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Adventure week- Rebound Nepal</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Ght Trailer</a> </li>
 
-        <!-- Footer -->
-        <div class="footer" style="background:url({%static "frontend/img/fback.jpg" %}); background-size:cover;">
-            <div class="wrap">
-            <div class="row" style="margin-top:20px; margin-bottom:20px; ">
-                    <div class="col-md-3">
-                        <a href="#"  style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Quick Links</h4> </a>
-                        <ul>
-                            <li><a href="#"  style="color:#fff;"> Home</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Destination</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Essential Info</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Ght Blog</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Earthquake 2015</a> </li>
-                            <li><a href="#"  style="color:#fff;"> FAQs</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Contact Us</a> </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#"  style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Watch</h4> </a>
-                        <ul>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <a href="#" class="fa fa-map-marker" style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Destinations</h4> </a>
+        <ul>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Humla</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Jumla</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;">Far west Nepal</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Pokhara</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Chitwan</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Humla</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Jumla</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;">Far west Nepal</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Pokhara</a> </li>
+
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <a href="#" class="fa fa-map-marker" style="color:#fff; font-size:25px;" ><h4 style="color:#fff;">My GHT</h4> </a>
+        <ul>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> Trekkers' Journals</a> </li>
+          <li><a href="#" class="fa fa-map-marker" style="color:#fff;"> My GHT Photo Compilation</a> </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 
-                            <li><a href="#"  style="color:#fff;"> Adventure week- Rebound Nepal</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Ght Trailer</a> </li>
 
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#"  style="color:#fff; font-size:25px;" ><h4 style="color:#fff;"> Destinations</h4> </a>
-                        <ul>
-                            <li><a href="#"  style="color:#fff;"> Humla</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Jumla</a> </li>
-                            <li><a href="#"  style="color:#fff;">Far west Nepal</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Pokhara</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Chitwan</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Humla</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Jumla</a> </li>
-                            <li><a href="#"  style="color:#fff;">Far west Nepal</a> </li>
-                            <li><a href="#"  style="color:#fff;"> Pokhara</a> </li>
+<!-- Bottom footer -->
+<div class="footer-bottom" style="background-color:#000;">
+  <div class="wrap" style="height:40px;">
+    <div class="copy">
+     <h1 style="font-size:13px; color:white;">&copy; <a href="#" target="_blank"></a> Moodways Travel,2017 </h1>
+   </div>
+   <div class="social">
+     <ul>
 
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <a href="#"  style="color:#fff; font-size:25px;" ><h4 style="color:#fff;">My GHT</h4> </a>
-                        <ul>
-                            <li><a href="#"  style="color:#fff;"> Trekkers' Journals</a> </li>
-                            <li><a href="#"  style="color:#fff;"> My GHT Photo Compilation</a> </li>
+     </ul>
+   </div>
+   <div class="clear"></div>
+ </div>
+</div>
 
-                        </ul>
-                    </div>
+{% include 'layouts/frontend/include/javascript.html'%}
+{% block extra_js%}
+{% endblock %}
 
-                </div>
-            </div>
-        </div>
-        <!-- Bottom footer -->
-        <div class="footer-bottom" style="background-color:#DDD;">
-              <div class="wrap">
-                <div class="copy">
-                   <h1 style="font-size:13px; color:#4ecdc4;">&copy; <a href="#" target="_blank"></a> Moodways Travel,2017 </h1>
-                </div>
-                <div class="social">
-                   <ul>
-                      <li class="facebook"><a href="#"><span> </span></a></li>
-                      <li class="linkedin"><a href="#"><span> </span></a></li>
-                      <li class="twitter"><a href="#"><span> </span></a></li>
-                   </ul>
-                </div>
-                <div class="clear"></div>
-              </div>
-       </div>
-
-    {% include 'layouts/frontend/include/javascript.html'%}
-    {% block extra_js%}
-    {% endblock %}
-
-    </body>
+</body>
 </html>

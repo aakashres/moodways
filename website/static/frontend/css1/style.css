@@ -361,10 +361,11 @@ li.twitter2 a span {
 }
 .blog-poast-admin {
 	position: absolute;
-	top:13.8em;
+	top:15.8em;
 	left: 1.2em;
 	background:gray;
-	padding: 0.8em 1em;
+	padding: 0.5em 0.8em;
+	padding-bottom:0.7em;
 	text-align: center;
 }
 
@@ -380,7 +381,7 @@ li.twitter2 a span {
 }
 .blog-poast-info {
 	background:#FFA540;
-	padding: 0.8em 1em;
+	padding: 0.1em 1em;
 	text-align: center;
 }
 .blog-poast-info ul li {

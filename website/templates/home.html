@@ -16,6 +16,8 @@
   <link href="{% static 'frontend/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'frontend/css/bootstrap.css' %}" rel="stylesheet">
   <link href="{% static 'frontend/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/css/headersocial.css' %}">
+
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{% static 'frontend/css/styler.css' %}" />
@@ -171,6 +173,31 @@
       <i class="icon-angle-right"></i>
     </a>
   </section><!--/#main-slider-->
+
+
+<div class="row">
+    <div class="share-it">
+        <div class="facebook" style="background-image: url({% static 'frontend/img/fb1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-facebook" ></i></a>
+   </div>
+   <div class="twitter" style="background-image: url({% static 'frontend/img/tw1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-twitter"></i></a>
+   </div>
+   <div class="google hidden-xs" style="background-image: url({% static 'frontend/img/pin1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-google-plus"></i></a>
+   </div>
+   <div class="rss" style="background-image: url({% static 'frontend/img/rss1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-rss"></i></a>
+   </div>
+   <div class="linkedin" style="background-image: url({% static 'frontend/img/li1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-linkedin"></i></a>
+   </div>
+   <div class="youtube cboxElement" style="background-image: url({% static 'frontend/img/vm1.png' %}); margin-bottom:5px;">
+     <a href="#"><i class="fa fa-youtube"></i></a>
+   </div>
+ </div>
+</div>
+
 
 <form action="{% url 'website:frontPackageList' %}" method="get">
 
@@ -364,7 +391,7 @@
          <a href="{% url 'website:frontBlogDetail' blog.id %}"><img src="{{blog.titlePic.url}}" alt=""></a>
 
          <h3><a href="{% url 'website:frontBlogDetail' blog.id %}" style="color:black;">{{blog.title}}</a></h3>
-         <div class="button st-center" style=" text-align:center; padding-top:-5px; background-color:#777777; margin-top:0px;"><a href="{% url 'website:frontBlogDetail' blog.id %}" style="color:white">See Package Details</a></div>
+         <div class="button st-center" style=" text-align:center; padding-top:-5px; background-color:#777777; margin-top:0px;"><a href="{% url 'website:frontBlogDetail' blog.id %}" style="color:white">See Blog Details</a></div>
        </div>
       {% endfor %}
 
@@ -602,18 +629,15 @@
 </section>
 
 
-
 <!-- Bottom footer -->
-<div class="footer-bottom" style="background-color:#DDD;">
-  <div class="wrap">
+<div class="footer-bottom" style="background-color:#000;">
+  <div class="wrap" style="height:40px;">
     <div class="copy">
-     <h1 style="font-size:13px; color:black;">&copy; <a href="#" target="_blank"></a> Moodways Travel,2017 </h1>
+     <h1 style="font-size:13px; color:white;">&copy; <a href="#" target="_blank"></a> Moodways Travel,2017 </h1>
    </div>
    <div class="social">
      <ul>
-       <li class="facebook"><a href="#"><span> </span></a></li>
-       <li class="linkedin"><a href="#"><span> </span></a></li>
-       <li class="twitter"><a href="#"><span> </span></a></li>
+
      </ul>
    </div>
    <div class="clear"></div>

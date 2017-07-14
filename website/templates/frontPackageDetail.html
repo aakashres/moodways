@@ -7,247 +7,237 @@
 
 
 {% block content %}
-    <!-- Location -->
-    <div class="footer-bottom" style="background-color:transparent; margin-top:40px;">
-      <div class="wrap">
-        <div class="copy" style="margin-left:100px;">
-            <h1 style="font-size:13px"><a href="{% url 'website:home' %}" target="_blank">Home</a></h1>
+<!-- Location -->
+<div class="footer-bottom" style="background-color:transparent; margin-top:40px;">
+  <div class="wrap">
+    <div class="copy" style="margin-left:100px;">
+        <h1 style="font-size:13px"><a href="{% url 'website:home' %}" target="_blank">Home</a></h1>
+    </div>
+    <div class="copy">
+     <h1 style="font-size:13px;"><a href="{% url 'website:frontPackageList' %}" target="_blank"> >>Package Grid</a></h1>
+ </div>
+ <div class="copy">
+     <h1 style="font-size:13px;"><a href="{% url 'website:frontPackageDetail' package.id %}" target="_blank"> >>Package Details</a></h1>
+ </div>
+ <div class="clear"></div>
+</div>
+</div>
+</div>
+
+<!-- Blog Section -->
+<div class="section">
+  <div class="container">
+    <div class="row">
+        <!-- Left Sidebar -->
+        <div class="col-sm-4 blog-sidebar" style="width:23%; margin-left:80px;">
+          <!-- Search Form -->
+          <form method="get" action=".">
+              <div class="input-group">
+                  <div class="input-group">
+                    <input type="search" name="q" class="form-control" placeholder="Search Packages">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                </div>
+            </div>
+        </form>
+        <div class="sidebar no-space" style="margin-left:-15px; ">
+            <h1 style="margin-bottom:20px; margin-top:30px; border-bottom: 1px solid #BBB;">Latest Packages</h1>
+            {% for package in recent %}
+            <div class="sidebar-posts" >
+                <i class="fw-icon-bell-alt" style="background:url({{package.titlePic.url}}); background-size:cover; width:60px; height:60px;"></i>
+                <h1 style="font-size:10px;" > <a href="#"></a>{{package.title}}</h1>
+                <p style="font-size:8px;">{{package.place}}, {{package.season}}</p>
+            </div>
+            {% endfor %}
+
         </div>
-        <div class="copy">
-           <h1 style="font-size:13px;"><a href="{% url 'website:frontPackageList' %}" target="_blank"> >>Package Grid</a></h1>
+
+        <!-- Categories Sidebar -->
+        <h4>Categories</h4>
+        <ul class="blog-categories">
+           <li><a href="#">Lorem ipsum</a></li>
+           <li><a href="#">Sed sit amet metus</a></li>
+           <li><a href="#">Nunc et diam </a></li>
+           <li><a href="#">Quisque</a></li>
+       </ul>
+       <!-- Archive Sidebar -->
+       <h4>Archive</h4>
+       <ul class="blog-categories">
+           <li><a href="#">January 2013</a></li>
+           <li><a href="#">February 2013</a></li>
+           <li><a href="#">March 2013</a></li>
+           <li><a href="#">April 2013</a></li>
+           <li><a href="#">May 2013</a></li>
+       </ul>
+   </div>
+   <!-- End Sidebar -->
+
+   <!-- Blog Post -->
+   <div class="col-sm-8" style="width:70%; align:right; margin-right:-40px;">
+      <div class="blog-post blog-single-post" >
+
+
+       <div class="single-post-content" style="margin-top:-10px;">
+           <!-- Title -->
+           <h3 style="color:black; font-size:17px; letter-spacing:0px; font-weight:bold;">{{package.title}}</h3>
+
+           <!-- Image -->
+           <div class="single-post-image" style="margin-top:20px;">
+            <div class="intro" style="background-image:url('{{package.titlePic.url}}'); height:500px; width:100%;">
+             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top:20px; ">
+
+                <dd><p><small> {{package.caption}}</small></p></dd>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:30px; margin-bottom:30px; background-color:#EEE; border-radius:5px;">
+
+       <div class="col-md-3" style=" background-color:#EEE; border-radius:5px; margin-left:20px; padding:20px 20px;">
+           <p style="  border-radius:5px; font-size:15px; font-weight:bold; text-align:center;"><span class="glyphicon glyphicon-cloud"></span>&nbsp; Season: {{package.season}}</p>
+           <p style="  border-radius:5px; font-size:15px; font-weight:bold; text-align:center;"><span class="glyphicon glyphicon-usd"></span>&nbsp; Price: Rs. {{package.price}}</p>
+
        </div>
-       <div class="copy">
-           <h1 style="font-size:13px;"><a href="{% url 'website:frontPackageDetail' package.id %}" target="_blank"> >>Package Details</a></h1>
+       <div class="col-md-3" style="background-color:#EEE; font-weight:bold; border-radius:5px; margin-left:60px; padding:20px 20px;">
+           <p style="  border-radius:5px; font-size:15px; font-weight:bold; text-align:center;"><span class="glyphicon glyphicon-calendar"></span>&nbsp; Days : {{package.day}}</p>
+           <p style="  border-radius:5px; font-size:15px; font-weight:bold; text-align:center;"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp; Discount : {{package.discount}} $</p>
        </div>
-       <div class="clear"></div>
+
+       <div class="col-md-3" style=" padding-top:30px; text-align:center; margin-left:60px;">
+        <!-- Button trigger modal -->
+        <div class="c2a">
+
+           <a href="{% url 'website:frontPackageBooking' package.slug %}" class="btn btn-main btn-lg glyphicon ">Book now</a>
+       </div>
+
+
+
    </div>
 </div>
-</div>
+
+
+<!-- Body -->
+{%  if package.subTitle %}
+<h3 class="head">{{package.subTitle}}</h3>
+{% endif %}
+{{package.body|safe}}
+
 <section>
- <div>
-    <div class="brand-heading" style="TEXT-ALIGN:CENTER; ">
+    <div class="container" style="background:#FFF; ">
+        <div class="row">
+            <div class="board" style="background:transparent;">
+                <div class="board-inner" style="background:transparent;">
+                    <ul class="nav nav-tabs" id="myTab">
+                    {% for intenary in itenaryList %}
+                     <li class="{% if forloop.counter == 1%}active{% endif %}" style="width: 70px;">
+                         <a href="#day{{forloop.counter}}" data-toggle="tab" title="{{intenary.day}}">
+                          <span class="round-tabs one">
+                              <i class="glyphicon"><h6>{{forloop.counter}}</h6></i>
+                          </span>
+                      </a></li>
+                    {% endfor %}
 
-        <h1 style="font-size:40px; padding:40px 0; ">
-            EXPERIENCE NEPAL
-        </h1>
-    </div>
-    <div class="intro" style="background-image:url('{{package.titlePic.url}}'); height:500px; width:90%; margin-left:5%;">
-       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top:20px; ">
+</ul></div>
 
-        <dd><p><small>{{package.caption}}</small></p></dd>
-    </div>
-</div>
-<div class="container">
-  <div class="row" style="padding-top:20px;">
+<div class="tab-content">
+{% for intenary in itenaryList %}
 
-      <!--============(./col-lg-4 col-md-4 col-sm-4 col-xs-12)====================-->
-
-
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" >
-        <dt class='text-primary'>Specification</dt>
-        <dd><p><small> bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla  bla bla bla bla bla bla bla bla bla bla bla bla bla bla </small></p></dd>
-    </div>
-
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top:50px; text-align:center;">
-        <!-- Button trigger modal -->
-        <button class="btn btn-primary btn-lg" data-toggle="modal">
-    <a href="{% url 'website:frontPackageBooking' package.slug %}">Book Now</a>
-      </button>
-
+  <div class="tab-pane fade in {% if forloop.counter == 1%}active{% endif %}" id="day{{forloop.counter}}">
+      <h3 class="head text-center">{{intenary.day}}</h3>
+{{intenary.description|safe}}
   </div>
-  <div class="col-sm-12" style="width:100%; align:right; ">
-    <div class="blog-post blog-single-post" >
-    {{package.body|safe}}
-
-        </div>
-
-
-
-
-        <section class="cd-horizontal-timeline" style=" margin-top:0px; margin-bottom:0px; padding-bottom: 0px;">
-            <div class="timeline">
-                <div class="events-wrapper">
-                    <div class="events">
-                        <ol>
-                            {% for itenray in itenaryList %}
-                            <li><a href="#0" data-date="{{itenary.created_at}}" class="{% if forloop.counter == 1%}selected{% endif %}">day 1</a></li>
-                            {% endfor %}
-                        </ol>
-
-                        <span class="filling-line" aria-hidden="true"></span>
-                    </div> <!-- .events -->
-                </div> <!-- .events-wrapper -->
-
-                <ul class="cd-timeline-navigation">
-                    <li><a href="#0" class="prev inactive">Prev</a></li>
-                    <li><a href="#0" class="next">Next</a></li>
-                </ul> <!-- .cd-timeline-navigation -->
-            </div> <!-- .timeline -->
-
-            <div class="events-content">
-                <ol>
-                    <li class="selected" data-date="16/01/2014">
-                        <div class="container">
-
-                            <div class="row">
-                                <div class="col-md-4 col-md-offset-3">
-                                    <form action="" class="search-form">
-                                        <div class="form-group has-feedback">
-                                            <label for="search" class="sr-only">Search</label>
-                                            <input type="text" class="form-control" name="search" id="search" placeholder="search">
-                                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-
-
-                        </li>
-
-                        <li data-date="28/02/2014">
-                            <div class="row">
-                                <div class="col-md-4 col-md-offset-3">
-                                    <form action="" class="search-form">
-                                        <div class="form-group has-feedback">
-                                            <label for="search" class="sr-only">Search</label>
-                                            <input type="text" class="form-control" name="search" id="search" placeholder="search">
-                                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-
-                        </li>
-
-                        <li data-date="20/04/2014">
-                          <div class="row">
-                            <div class="col-md-4 col-md-offset-3">
-                                <form action="" class="search-form">
-                                    <div class="form-group has-feedback">
-                                        <label for="search" class="sr-only">Search</label>
-                                        <input type="text" class="form-control" name="search" id="search" placeholder="search">
-                                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                    </li>
-
-                    <li data-date="20/05/2014">
-                      <div class="row">
-                        <div class="col-md-4 col-md-offset-3">
-                            <form action="" class="search-form">
-                                <div class="form-group has-feedback">
-                                    <label for="search" class="sr-only">Search</label>
-                                    <input type="text" class="form-control" name="search" id="search" placeholder="search">
-                                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </li>
-
-                <li data-date="09/07/2014">
-                  <div class="row">
-                    <div class="col-md-4 col-md-offset-3">
-                        <form action="" class="search-form">
-                            <div class="form-group has-feedback">
-                                <label for="search" class="sr-only">Search</label>
-                                <input type="text" class="form-control" name="search" id="search" placeholder="search">
-                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-            </li>
-
-            <li data-date="30/08/2014">
-
-            </li>
-
-            <li data-date="15/09/2014">
-                <h2>Event title here</h2>
-                <em>September 15th, 2014</em>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
-                </p>
-            </li>
-
-            <li data-date="01/11/2014">
-                <h2>Event title here</h2>
-                <em>November 1st, 2014</em>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
-                </p>
-            </li>
-
-            <li data-date="10/12/2014">
-                <h2>Event title here</h2>
-                <em>December 10th, 2014</em>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
-                </p>
-            </li>
-
-            <li data-date="19/01/2015">
-                <h2>Event title here</h2>
-                <em>January 19th, 2015</em>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
-                </p>
-            </li>
-
-            <li data-date="03/03/2015">
-                <h2>Event title here</h2>
-                <em>March 3rd, 2015</em>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam quisquam, quae, temporibus dolores porro doloribus.
-                </p>
-            </li>
-        </ol>
-    </div>
-</div> <!-- .events-content -->
-</section>
-
-<div class="brand-heading" style="TEXT-ALIGN:CENTER; ">
-
-    <h1 style="font-size:40px; padding:20px 0; ">
-        GALLERY
-    </h1>
+  {% endfor %}
 </div>
-<!-- Blog Section -->
-<div id="first-slider" style="padding-bottom: 40px; width:90%; margin-left:5%;">
+</section>
+                         <div class="brand-heading" style="TEXT-ALIGN:CENTER; ">
+
+                        <h1 style="font-size:40px; padding:40px 0; ">
+                        GALLERY
+                        </h1>
+                    </div>
+                  <div id="first-slider" style="padding-bottom: 40px; width:90%; margin-left:5%;">
     <div id="carousel-example-generic" class="carousel slide carousel-fade">
         <!-- Indicators -->
         <ol class="carousel-indicators">
-        {% for photo in photos %}
-            <li data-target="#carousel-example-generic" data-slide-to="{{forloop.counter|subtract}}" class="{% if forloop.counter == 1%}active{% endif %}"></li>
-        {% endfor %}
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
         </ol>
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <!-- Item 1 -->
-        {% for photo in photos %}
-            <div class="item {% if forloop.counter == 1%}active{% endif %} slide{{forloop.counter}}">
+            <div class="item active slide1 img img-responsive" style="background:url({% static 'frontend/img/fback.jpg'%}); ">
                 <div class="row"><div class="container">
-                <img src="{{gallery.photo.url}}">
+
                     <div class="col-md-9 text-left">
-                        <h3 data-animation="animated bounceInDown">{{photo.caption}}</h3>
-                    </div>
+                        <h3 data-animation="animated bounceInDown">bla</h3>
+                        <h4 data-animation="animated bounceInUp">bla</h4>
+                     </div>
+                </div></div>
+             </div>
+            <!-- Item 2 -->
+            <div class="item slide2" style="background:url({% static 'frontend/img/back.jpg'%}); ">
+                <div class="row"><div class="container">
+                    <div class="col-md-7 text-left">
+                        <h3 data-animation="animated bounceInDown">bla</h3>
+                        <h4 data-animation="animated bounceInUp">bla </h4>
+                     </div>
+
                 </div></div>
             </div>
-        {% endfor %}
+            <!-- Item 3 -->
+            <div class="item slide3" style="background:url({% static 'frontend/img/fback.jpg'%}); ">
+                <div class="row"><div class="container">
+                    <div class="col-md-7 text-left">
+                        <h3 data-animation="animated bounceInDown">bla</h3>
+                        <h4 data-animation="animated bounceInUp">bla</h4>
+                     </div>
+
+                </div></div>
+            </div>
+            <!-- Item 4 -->
+            <div class="item slide4" style="background:url({% static 'frontend/img/back.jpg'%}); ">
+                <div class="row"><div class="container">
+                    <div class="col-md-7 text-left">
+                        <h3 data-animation="animated bounceInDown">bla</h3>
+                        <h4 data-animation="animated bounceInUp">bla</h4>
+                     </div>
+
+                </div></div>
+            </div>
+            <!-- End Item 4 -->
 
         </div>
         <!-- End Wrapper for slides-->
 
     </div>
 </div>
+
+
+<div class="c2a">
+
+   <a href="{% url 'website:frontPackageBooking' package.slug %}" class="btn btn-main btn-lg glyphicon ">Book now</a>
+</div>
+
+
+
+
+
+
+
+</div>
+
+</div>
+<!-- End Blog Post -->
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
 
 
 {% endblock %}
