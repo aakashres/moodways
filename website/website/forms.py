@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import *
+from ckeditor.widgets import CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 class UserForm(forms.ModelForm):
@@ -143,6 +145,9 @@ class PackageForm(forms.ModelForm):
     class Meta:
         model = Package
         exclude = ['deleted_at', ]
+        widgets = {
+            'body': CKEditorUploadingWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -163,6 +168,9 @@ class ItenaryForm(forms.ModelForm):
     class Meta:
         model = Itenary
         exclude = ['deleted_at', 'package']
+        widgets = {
+            'description': CKEditorUploadingWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -174,6 +182,9 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         exclude = ['deleted_at', ]
+        widgets = {
+            'body': CKEditorUploadingWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -201,6 +212,9 @@ class PageForm(forms.ModelForm):
     class Meta:
         model = Page
         exclude = ['deleted_at', ]
+        widgets = {
+            'body': CKEditorUploadingWidget(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
