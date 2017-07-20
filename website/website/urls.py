@@ -22,7 +22,8 @@ urlpatterns = [
     url(r'git-pull/$', GitPullView.as_view(), name='git_pull'),
 
 
-    url(r'^moodwaysAdmin/dahboard/$', Dashboard.as_view(), name="dashboard"),
+    url(r'^moodwaysAdmin/$', Dashboard.as_view(), name="dashboard_main"),
+    url(r'^moodwaysAdmin/dashboard/$', Dashboard.as_view(), name="dashboard"),
 
 
     url(r'^register/$', RegistrationView.as_view(), name="register"),
