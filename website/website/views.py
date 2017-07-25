@@ -92,7 +92,11 @@ class RegistrationView(View):
         if request.user.is_authenticated():
             messages.warning(request, 'You are already registered.')
             return redirect('website:dashboard')
-        return super(RegistrationView, self).dispatch(request, *args, **kwargs)
+        try:
+            return super(RegistrationView, self).dispatch(request, *args, **kwargs)
+        except:
+            return redirect('website:dashboard')
+            
 
 
 class LoginView(View):
