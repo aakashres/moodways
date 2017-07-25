@@ -388,7 +388,7 @@ class ItenaryDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     def get_success_url(self):
         # Assuming there is a ForeignKey from Comment to Post in your model
         post = self.object.package.id 
-        return reverse_lazy( 'single_post', kwargs={'pk': post})
+        return reverse_lazy( 'website:packageDetail', kwargs={'pk': post})
 
 class PageCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = Page
