@@ -2,7 +2,7 @@
 {% load staticfiles %}
 <html>
 <head>
-    <title>{% block head_title %}Moodways Admin Pannel{% endblock %}</title>
+    <title>{% block head_title %}Moodways Admin Panel{% endblock %}</title>
     {% include "layouts/admin/include/head.html" %}
     {% block extra_head %}
     {% endblock %}
@@ -34,7 +34,6 @@
                 <ul class="header-nav header-nav-profile">
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-                            <img src="{% static 'assets/img/avatar1.jpg' %}" alt="" />
                             <span class="profile-info">
                                 {{request.user.get_full_name}}
                                 <small> Administrator</small>
