@@ -346,7 +346,7 @@ class PackageDetailView(LoginMixin, FormView):
                         self).get_context_data(**kwargs)
         context['package'] = self.package
         context['itenaries'] = Itenary.objects.filter(
-            package=self.package)
+            package=self.package).filter(deleted_at=None)
         return context
 
     def form_valid(self, form):
@@ -383,7 +383,7 @@ class PackageDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
 class ItenaryDeleteView(LoginMixin, SuccessMessageMixin, DeleteView):
     model = Itenary
     template_name = 'delete.html'
-    success_url = reverse_lazy("website:packageList")
+    success_url = reverse_lazy("website:packageDetail", kwargs=self.kwargs)
     success_message = "Itenary Successfully Deleted"
 
 
