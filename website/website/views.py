@@ -180,7 +180,7 @@ class GalleryDetailView(LoginMixin, FormView):
                         self).get_context_data(**kwargs)
         context['gallery'] = self.gallery
         context['photos'] = Photo.objects.filter(
-            gallery=self.gallery)
+            gallery=self.gallery).filter(deleted_at=None)
         return context
 
     def form_valid(self, form):
