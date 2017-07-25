@@ -106,6 +106,8 @@ class Package(Timestampable):
     class Meta:
         verbose_name = "Package"
         verbose_name_plural = "Packages"
+        ordering = ('-created_at',)
+        
 
 
 class Itenary(Timestampable):
